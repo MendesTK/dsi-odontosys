@@ -20,8 +20,8 @@ public class Paciente {
 	@NotNull
 	private String sexo;
 	@NotNull
-	@Column(length = 11)
-	private int cpf;
+	@Column(length = 14)
+	private String cpf;
 	private String endereco;
 
 	public long getId() {
@@ -48,11 +48,11 @@ public class Paciente {
 		this.sexo = sexo;
 	}
 
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
