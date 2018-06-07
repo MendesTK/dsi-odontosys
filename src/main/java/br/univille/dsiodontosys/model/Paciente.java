@@ -1,5 +1,6 @@
 package br.univille.dsiodontosys.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-public class Cliente {
+public class Paciente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,8 @@ public class Cliente {
 	@NotNull
 	private String sexo;
 	@NotNull
-	private Integer cpf;
+	@Column(length = 11)
+	private int cpf;
 	private String endereco;
 
 	public long getId() {
@@ -46,11 +48,11 @@ public class Cliente {
 		this.sexo = sexo;
 	}
 
-	public Integer getCpf() {
+	public int getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(int cpf) {
 		this.cpf = cpf;
 	}
 

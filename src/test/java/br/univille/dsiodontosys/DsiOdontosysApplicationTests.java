@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import br.univille.dsiodontosys.controller.ClienteController;
+import br.univille.dsiodontosys.controller.PacienteController;
 import br.univille.dsiodontosys.controller.HomeController;
 
 @RunWith(SpringRunner.class)
@@ -27,7 +27,7 @@ public class DsiOdontosysApplicationTests {
 	@Autowired
 	private HomeController controller;
 	@Autowired
-	private ClienteController clienteController;
+	private PacienteController pacienteController;
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -35,7 +35,7 @@ public class DsiOdontosysApplicationTests {
 	public void contextLoads() {
 		// Verifica a existência da instância do controlador
 		assertThat(controller).isNotNull();
-		assertThat(clienteController).isNotNull();
+		assertThat(pacienteController).isNotNull();
 	}
 
 	@Test
