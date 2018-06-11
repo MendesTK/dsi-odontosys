@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<title>Agendar Consulta</title>
 <body>
+	<div class="container">
+		<nav th:replace="layout :: menu">(menu)</nav>
+		<div class="border border-dark">
+			<form th:action="@{/agenda/(form)}" th:object="${agenda}"
+				action="#" method="post">
+				<input type="hidden" id="txtid" th:field="*{id}" />
 
+				<div class="form-group">
+					<label for="txtPaciente">Nome</label>
+						<select id="listPaciente" th:field="*{paciente}">
+							<option value="">Selecione o paciente</option>
+							<option th:each="umpaciente : ${listapacientes}" th:value="${umpaciente.id}" 
+							th:text="${umpaciente.nome}" ></option>
+						</select>
+				</div>
+				<div class="form-group">
+					<div class='input-group date' id='datetimepicker1'>
+	                    <input type='text' class="form-control" />
+	                    <span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+	                </div>
+				</div>
+
+
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+		</div>
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+	<script type="text/javascript">
+		$(function () {
+	        $('#datetimepicker1').datetimepicker();
+	    });
+	</script>
 </body>
 </html>
