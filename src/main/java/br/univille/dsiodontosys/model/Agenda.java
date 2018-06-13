@@ -20,19 +20,19 @@ public class Agenda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private Paciente paciente;
 
-	@NotNull
+	//@NotNull
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date data;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private Procedimento procedimento;
 
-	@NotNull
+	//@NotNull
 	@Column(length = 50)
 	private String status;
 

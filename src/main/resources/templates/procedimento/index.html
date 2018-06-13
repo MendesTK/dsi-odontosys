@@ -2,33 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="layout :: htmlhead"></head>
 <meta charset="UTF-8">
-<title>Agenda</title>
+<title>Procedimento</title>
 <body>
 	<div class="container">
 		<nav th:replace="layout :: menu">(menu)</nav>
-		<a href="form.html" th:href="@{/agenda/AgendarConsulta}"
-			class="btn btn-primary btn-lg" role="button">Agendar Consulta</a>
+		<a href="form.html" th:href="@{/procedimento/novo}"
+			class="btn btn-primary btn-lg" role="button">Novo Procedimento</a>
 		<div class="border border-dark">
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
-						<th scope="col">Nome</th>
+						<th scope="col">Procedimento</th>
+						<th scope="col">Descrição</th>
+						<th scope="col">Dentistas Responsáveis</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr scope="row" th:each="umacons : ${listacons}">
-						<td th:text="${umacons.paciente}"></td>
-						<td th:text="${umacons.data}"></td>
-						<td th:text="${umacons.procedimento}"></td>
-						<td th:text="${umacons.status}"></td>
-						<td th:text="${umacons.dentistaResponsavel}"></td>
+					<tr scope="row" th:each="umpac : ${listaproc}">
+						<td th:text="${umpac.nome}"></td>
+						<td th:text="${umpac.descricao}"></td>
+						<td th:text="${umpac.listaDentistasAutorizados}"></td>
 						<td><a href="form.html"
-							th:href="@{'/agenda/alterar/' + ${umacons.id}}"
+							th:href="@{'/procedimento/alterar/' + ${umpac.id}}"
 							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a
 							href="#" class="btn btn-warning btn-lg" role="button"
 							data-toggle="modal" data-target="#confirmaExclusao"
-							th:data-id="${umacons.id}">Excluir</a></td>
+							th:data-id="${umpac.id}">Excluir</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -45,7 +45,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p>Confirma a exclusão deste registro da consulta?</p>
+						<p>Confirma a exclusão deste registro do procedimento?</p>
 					</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-warning btn-lg" id="btnConf"
@@ -67,7 +67,7 @@
 					var recipient = button.data('id')
 					var modal = $(this)
 					modal.find('#btnConf').attr("href",
-							"/consulta/remover/" + recipient)
+							"/procedimento/remover/" + recipient)
 				})
 		/*]]>*/
 	</script>
