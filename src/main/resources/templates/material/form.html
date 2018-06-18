@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<meta charset="UTF-8">
+<title>Novo Material</title>
+<body>
+	<div class="container">
+		<nav th:replace="layout :: menu">(menu)</nav>
+		<div class="border border-dark">
+			<form th:action="@{/material/(form)}" th:object="${material}"
+				action="#" method="post">
+				<input type="hidden" id="txtid" th:field="*{id}" />
+
+				<div class="form-group">
+					<label for="txtnomeMaterial">Nome do Material</label> <input type="text"
+						th:field="*{nomeMaterial}" class="form-control" id="txtnomeMaterial"
+						placeholder="Nome">
+				</div>
+
+				<div class="form-group">
+					<label for="txtdescricao">Descrição</label>
+					<textarea th:field="*{descricao}" class="form-control"
+						id="txtdescricao" rows="3" placeholder="Descrição"></textarea>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+		</div>
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+</body>
+</html>

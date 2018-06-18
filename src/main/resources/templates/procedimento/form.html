@@ -26,18 +26,33 @@
 
 
 				<div class="form-group">
-					<label for="txtdentistas">Dentistas Habilitados</label> <input
-						list="destistas" th:each="dentistas : ${listadentistas}"
-						th:value="${dentistas.id}" th:text="${dentistas.nome}"> <select
-						class="custom-select" multiple>
+					<label for="txtdentistas">Dentistas Habilitados</label>
+					
+					 <select name="slcDentista" id="slcDentista" >
+					 	<option th:each="dentistas : ${listadentistas}"
+					          th:value="${dentistas.id}" th:text="${dentistas.nome}">
+					    </option>
 					</select>
 
 
 				</div>
-
-
-
-
+				<div class="form-group">
+					<table class="table">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Nome</th>
+									<th scope="col">CPF</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr scope="row" th:each="umdentista : *{listaDentistasAutorizados}">
+									<td th:text="${umdentista.nome}"></td>
+									<td th:text="${umdentista.cpf}"></td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+	
 
 
 
