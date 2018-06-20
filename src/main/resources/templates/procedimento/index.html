@@ -20,23 +20,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr scope="row" th:each="umpac : ${listaproc}">
-						<td th:text="${umpac.nome}"></td>
+					<tr scope="row" th:each="umproc : ${listaproc}">
+						<td th:text="${umproc.nome}"></td>
 						<td>
-						<div style="word-wrap:break-word;" th:text="${umpac.descricao}">
+						<div style="word-wrap:break-word;" th:text="${umproc.descricao}">
 						</div>
 						</td>
 						<td>
-							<ul scope="row" th:each="umdentista : ${umpac.listaDentistasAutorizados}">
+							<ul scope="row" th:each="umdentista : ${umproc.listaDentistasAutorizados}">
 								<li th:text="${umdentista.nome}"></li>
 							</ul>
 						</td>
 						<td><a href="form.html"
-							th:href="@{'/procedimento/alterar/' + ${umpac.id}}"
+							th:href="@{'/procedimento/alterar/' + ${umproc.id}}"
 							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a
 							href="#" class="btn btn-warning btn-lg" role="button"
 							data-toggle="modal" data-target="#confirmaExclusao"
-							th:data-id="${umpac.id}">Excluir</a></td>
+							th:data-id="${umproc.id}">Excluir</a></td>
 					</tr>
 				</tbody>
 			</table>

@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Agenda {
 
@@ -26,6 +28,7 @@ public class Agenda {
 
 	//@NotNull
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy H:mm")
 	private Date data;
 
 	//@NotNull

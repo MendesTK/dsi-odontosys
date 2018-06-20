@@ -5,8 +5,9 @@
 <link rel="stylesheet"
 	th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
 <link rel="stylesheet"
-	th:href="@{/css/bootstrap-datetimepicker.min.css}" />	
-</head>
+	th:href="@{/webjars/tempusdominus-bootstrap-4/5.0.0-alpha.16/build/css/tempusdominus-bootstrap-4.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" />
 <body>
 	<nav th:fragment="menu"
 		class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -17,57 +18,58 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		
+
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link" href="/">Início</a>
 				</li>
 			</ul>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link" href="/agenda">Agenda</a>
 				</li>
 			</ul>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link" href="/paciente">Paciente</a>
-				</li>
+				<li class="nav-item active"><a class="nav-link"
+					href="/paciente">Paciente</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link" href="/dentista">Dentista</a>
-				</li>
+				<li class="nav-item active"><a class="nav-link"
+					href="/dentista">Dentista</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link" href="/procedimento">Procedimento</a>
-				</li>
+				<li class="nav-item active"><a class="nav-link"
+					href="/procedimento">Procedimento</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link" href="/material">Material</a>
-				</li>
+				<li class="nav-item active"><a class="nav-link"
+					href="/material">Material</a></li>
 			</ul>
 		</div>
-		
+
 	</nav>
 
 	<div th:fragment="footer" id="footer">
 		<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 		<script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
 		<script th:src="@{/js/moment.min.js}"></script>
-		<script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
-		
+		<script th:src="@{/webjars/moment/2.22.2/min/moment.min.js}"></script>
+        <script th:src="@{/webjars/tempusdominus-bootstrap-4/5.0.0-alpha.16/build/js/tempusdominus-bootstrap-4.min.js}"></script>
+
 	</div>
 </body>
 </html>
