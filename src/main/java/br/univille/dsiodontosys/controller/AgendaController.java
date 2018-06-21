@@ -1,5 +1,6 @@
 package br.univille.dsiodontosys.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,15 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.dsiodontosys.model.Agenda;
+import br.univille.dsiodontosys.model.Dentista;
 import br.univille.dsiodontosys.model.Paciente;
+import br.univille.dsiodontosys.model.Procedimento;
 import br.univille.dsiodontosys.repository.AgendaRepository;
 import br.univille.dsiodontosys.repository.PacienteRepository;
+import br.univille.dsiodontosys.repository.ProcedimentoRepository;
 
 @Controller
 @RequestMapping("/agenda")
@@ -28,6 +33,9 @@ public class AgendaController {
 	
 	@Autowired
 	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private ProcedimentoRepository procedimentoRepository;
 	
 	
 	@GetMapping("")
@@ -43,8 +51,11 @@ public class AgendaController {
 		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
 		
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
-		
-		return new ModelAndView("agenda/form","listapacientes", listaPacientes);
+		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("listapacientes", listaPacientes);
+		dados.put("listaprocedimentos", listaProcedimentos);
+		return new ModelAndView("agenda/form", dados);
 	}
 	
 	@PostMapping(params = "form")
@@ -53,6 +64,16 @@ public class AgendaController {
 		agenda = this.agendaRepository.save(agenda);
 
 		return new ModelAndView("redirect:/agenda");
+	}
+	
+	@GetMapping(value = "/alterar/{id}")
+	public ModelAndView alterarForm(@PathVariable("id") Agenda agenda) {
+		List<Paciente> listaPacientes = this.pacienteRepository.findAll();
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("agenda", agenda);
+		dados.put("listapacientes", listaPacientes);
+		
+		return new ModelAndView("agenda/formalterar", dados);
 	}
 	
 

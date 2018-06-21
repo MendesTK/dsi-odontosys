@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<meta charset="UTF-8">
+<title>Agendar Consulta</title>
+<body>
+	<div class="container">
+		<nav th:replace="layout :: menu">(menu)</nav>
+		<div class="border border-dark">
+			<form th:action="@{/agenda/(form)}" th:object="${agenda}" action="#"
+				method="post">
+
+				<input type="hidden" id="txtid" th:field="*{id}" />
+				
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="txtPaciente">Paciente</label> <input
+							class="form-control" type="text" th:value="*{paciente.nome}"
+							disabled />
+
+					</div>
+				</div>
+
+				<input type="hidden" th:field="*{paciente}" />
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label for="data">Data</label>
+								<div class="input-group date" id="datetimepicker1"
+									data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input"
+										data-target="#datetimepicker1" th:field="*{data}" />
+									<div class="input-group-append" data-target="#datetimepicker1"
+										data-toggle="datetimepicker">
+										<div class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+		</div>
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+
+	<script type="text/javascript">
+		$(function() {
+			$('#datetimepicker1').datetimepicker({
+				locale : 'pt-br',
+				format : "DD/MM/YYYY HH:mm"
+			});
+		});
+	</script>
+
+</body>
+</html>

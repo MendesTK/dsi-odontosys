@@ -12,39 +12,47 @@
 
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
-				<div class="form-group">
-					<label for="txtPaciente">Paciente</label> <select
-						class="form-control" id="listPaciente" th:field="*{paciente}"
-						required>
-						<option value="">Selecione o paciente</option>
-						<option th:each="umpaciente : ${listapacientes}"
-							th:value="${umpaciente.id}" th:text="${umpaciente.nome}"></option>
-					</select>
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="txtPaciente">Paciente</label> <select
+							class="form-control" id="listPaciente" th:field="*{paciente}"
+							required>
+							<option value="">Selecione o paciente</option>
+							<option th:each="umpaciente : ${listapacientes}"
+								th:value="${umpaciente.id}" th:text="${umpaciente.nome}"></option>
+						</select>
+					</div>
 				</div>
 
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6">
 
-
-							<div class="form-group">
-								<label for="data">Data</label>
-								<div class="input-group date" id="datetimepicker1"
-									data-target-input="nearest">
-									<input type="text" class="form-control datetimepicker-input"
-										data-target="#datetimepicker1" th:field="*{data}" />
-									<div class="input-group-append" data-target="#datetimepicker1"
-										data-toggle="datetimepicker">
-										<div class="input-group-text">
-											<i class="fa fa-calendar"></i>
-										</div>
-									</div>
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="data">Data</label>
+						<div class="input-group date" id="datetimepicker1"
+							data-target-input="nearest">
+							<input type="text" class="form-control datetimepicker-input"
+								data-target="#datetimepicker1" th:field="*{data}" />
+							<div class="input-group-append" data-target="#datetimepicker1"
+								data-toggle="datetimepicker">
+								<div class="input-group-text">
+									<i class="fa fa-calendar"></i>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
+				
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="txtPaciente">Procedimento</label> <select
+							class="form-control" id="listPaciente" th:field="*{procedimento}"
+							required>
+							<option value="">Selecione o paciente</option>
+							<option th:each="umprocedimento : ${listaprocedimentos}"
+								th:value="${umprocedimentp.id}" th:text="${umprocedimento.nome}"></option>
+						</select>
+					</div>
+				</div>
 
 
 
@@ -57,7 +65,7 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#datetimepicker1').datetimepicker({
-				locale: 'pt-br',
+				locale : 'pt-br',
 				format : "DD/MM/YYYY HH:mm"
 			});
 		});

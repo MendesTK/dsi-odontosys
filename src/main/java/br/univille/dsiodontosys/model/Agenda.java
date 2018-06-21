@@ -22,11 +22,11 @@ public class Agenda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	//@NotNull
+	@NotNull
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private Paciente paciente;
 
-	//@NotNull
+	@NotNull
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy H:mm")
 	private Date data;
