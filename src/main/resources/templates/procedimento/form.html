@@ -23,40 +23,61 @@
 						id="txtdescricao" rows="3" placeholder="Descrição"></textarea>
 				</div>
 
+				<div class="card">
+					<div class="card-header">Vincluar Dentista</div>
+					<div class="card-body">
+						<div class="container" th:object="${nvdentistahabilitado}">
+							<div class="row">
+								<div class="col-sm">
+									<select class="form-control" id="slcDentista"
+										th:field="${nvdentistahabilitado.nome}">
+										<option th:each="umDent : ${listadentistas}"
+											th:value="${umDent.id}" th:text="${umDent.nome}"></option>
+									</select>
+								</div>
+
+								<div class="col-sm">
+									<button type="submit" name="insertdent" class="btn btn-primary">Inserir
+										item</button>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
 
 
-				<div class="form-group">
-					<label for="txtdentistas">Dentistas Habilitados</label>
-					
-					 <select name="slcDentista" id="slcDentista" >
-					 	<option th:each="dentistas : ${listadentistas}"
-					          th:value="${dentistas.id}" th:text="${dentistas.nome}">
-					    </option>
-					</select>
-
-
-				</div>
-				<div class="form-group">
 					<table class="table">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">Nome</th>
-									<th scope="col">CPF</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr scope="row" th:each="umdentista : *{listaDentistasAutorizados}">
-									<td th:text="${umdentista.nome}"></td>
-									<td th:text="${umdentista.cpf}"></td>
-								</tr>
-							</tbody>
-						</table>
-				</div>
-	
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">CPF</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr scope="row"
+								th:each="umdentista, stat : ${listaDentistasAutorizados}">
+								<input type="hidden"
+									th:field="${procedimento.listaDentistasAutorizados[__${stat.index}__].nome}" />
+								<input type="hidden"
+									th:field="${consulta.listaDentistasAutorizados[__${stat.index}__].cpf}" />
+								<td th:text="${umdentista.listaDentistasAutorizados.nome}"></td>
+								<td th:text="${umdentista.listaDentistasAutorizados.cpf}"></td>
+								<td>
+									<button type="submit" name="removedent"
+										th:value="__${stat.index}__" class="btn btn-primary">Remover</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+					
 
 
 
-				<button type="submit" class="btn btn-primary">Enviar</button>
+
+					<button type="submit" class="btn btn-primary">Enviar</button>
 			</form>
 		</div>
 	</div>

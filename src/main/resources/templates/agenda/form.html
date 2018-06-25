@@ -23,8 +23,19 @@
 						</select>
 					</div>
 				</div>
-
-
+				
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="txtProcedimento">Procedimento</label> <select
+							class="form-control" id="listProcedimentos" th:field="*{procedimento}"
+							required>
+							<option value="">Selecione o procedimento</option>
+							<option th:each="umprocedimento : ${listaprocedimentos}"
+								th:value="${umprocedimento.id}" th:text="${umprocedimento.nome}"></option>
+						</select>
+					</div>
+				</div>
+				
 				<div class="col-md-8">
 					<div class="form-group">
 						<label for="data">Data</label>
@@ -39,18 +50,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-8">
-					<div class="form-group">
-						<label for="txtPaciente">Procedimento</label> <select
-							class="form-control" id="listPaciente" th:field="*{procedimento}"
-							required>
-							<option value="">Selecione o paciente</option>
-							<option th:each="umprocedimento : ${listaprocedimentos}"
-								th:value="${umprocedimentp.id}" th:text="${umprocedimento.nome}"></option>
-						</select>
 					</div>
 				</div>
 

@@ -1,5 +1,6 @@
 package br.univille.dsiodontosys.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -40,18 +41,59 @@ public class ProcedimentoController {
 	@GetMapping("/novo")
 	public ModelAndView createForm(@ModelAttribute Procedimento procedimento) {
 		List<Dentista> listaDentista = this.dentistaRepository.findAll();
-
-		return new ModelAndView("procedimento/form", "listadentistas", listaDentista);
+		
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("listadentistas", listaDentista);
+		dados.put("nvdentistahabilitado", new Dentista());
+		
+		
+		
+		return new ModelAndView("procedimento/form", dados);
 	}
 	
-	@PostMapping(params = "form")
-	public ModelAndView save(@Valid Procedimento procedimento, BindingResult result, RedirectAttributes redirect) {
+	@PostMapping(params = "save")
+	public ModelAndView save(@Valid Procedimento procedimento, @Valid Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
 
 		procedimento = this.procedimentoRepository.save(procedimento);
 
 		return new ModelAndView("redirect:/procedimento");
 	}
-
+	
+	@PostMapping(params= {"insertdent"})
+    public ModelAndView insertproc(Procedimento procedimento, Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
+        List<Dentista> listaDentista = this.dentistaRepository.findAll();
+        
+        
+        procedimento.getListaDentistasAutorizados().add(nvdentistahabilitado);
+        
+    
+        HashMap<String, Object> dados = new HashMap<String, Object>();
+        dados.put("listadentistas", listaDentista);
+        dados.put("nvdentistahabilitado", new Dentista());
+        
+        
+        return new ModelAndView("procedimento/form",dados);
+    }
+    /*
+	@PostMapping(params= {"removedent"})
+    public ModelAndView removeproc(@RequestParam(name = "removeproc") int index, Consulta consulta, ProcedimentoRealizado novoprocrealizado, BindingResult result, RedirectAttributes redirect) {
+        List<Medico> listaMedico = this.medicoRepository.findAll();
+        List<Paciente> listaPaciente = this.pacienteRepository.findAll();
+        List<Procedimento> listaProcedimento = this.procedimentoRepository.findAll();
+        
+        consulta.getListaProcedimentos().remove(index);
+    
+        HashMap<String, Object> dados = new HashMap<String, Object>();
+        dados.put("consulta", consulta);
+        dados.put("listaMedico", listaMedico);
+        dados.put("listaPaciente", listaPaciente);
+        dados.put("listaProcedimento", listaProcedimento);
+        dados.put("novoprocrealizado", new ProcedimentoRealizado());
+        
+        
+        return new ModelAndView("consulta/form",dados);
+    }
+*/
 	@GetMapping(value = "/alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Procedimento procedimento) {
 		return new ModelAndView("procedimento/form", "procedimento", procedimento);
