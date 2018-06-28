@@ -2,6 +2,7 @@ package br.univille.dsiodontosys.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -42,6 +43,7 @@ public class ProcedimentoController {
 	public ModelAndView createForm(@ModelAttribute Procedimento procedimento) {
 		List<Dentista> listaDentista = this.dentistaRepository.findAll();
 		
+		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listadentistas", listaDentista);
 		dados.put("nvdentistahabilitado", new Dentista());
@@ -52,20 +54,18 @@ public class ProcedimentoController {
 	}
 	
 	@PostMapping(params = "save")
-	public ModelAndView save(@Valid Procedimento procedimento, @Valid Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
+	public ModelAndView save(Procedimento procedimento, Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
 
 		procedimento = this.procedimentoRepository.save(procedimento);
 
 		return new ModelAndView("redirect:/procedimento");
 	}
 	
-	@PostMapping(params= {"insertdent"})
+	@PostMapping(params= "insertdent")
     public ModelAndView insertproc(Procedimento procedimento, Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
         List<Dentista> listaDentista = this.dentistaRepository.findAll();
         
-        
-        procedimento.getListaDentistasAutorizados().add(nvdentistahabilitado);
-        
+    	procedimento.getListaDentistasAutorizados().add(nvdentistahabilitado);
     
         HashMap<String, Object> dados = new HashMap<String, Object>();
         dados.put("listadentistas", listaDentista);
