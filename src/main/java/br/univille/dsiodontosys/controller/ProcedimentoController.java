@@ -2,9 +2,6 @@ package br.univille.dsiodontosys.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +19,7 @@ import br.univille.dsiodontosys.model.Dentista;
 import br.univille.dsiodontosys.model.Procedimento;
 import br.univille.dsiodontosys.repository.DentistaRepository;
 import br.univille.dsiodontosys.repository.ProcedimentoRepository;
+import br.univille.dsiodontosys.valueobject.DentistaSelecionado;
 
 @Controller
 @RequestMapping("/procedimento")
@@ -40,13 +39,13 @@ public class ProcedimentoController {
 	}
 
 	@GetMapping("/novo")
-	public ModelAndView createForm(@ModelAttribute Procedimento procedimento) {
+	public ModelAndView createForm(@ModelAttribute Procedimento procedimento, DentistaSelecionado dentistaSelecionado) {
 		List<Dentista> listaDentista = this.dentistaRepository.findAll();
 		
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listadentistas", listaDentista);
-		dados.put("nvdentistahabilitado", new Dentista());
+		dados.put("dentistaSelecionado", new DentistaSelecionado());
 		
 		
 		
@@ -54,7 +53,7 @@ public class ProcedimentoController {
 	}
 	
 	@PostMapping(params = "save")
-	public ModelAndView save(Procedimento procedimento, Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
+	public ModelAndView save(Procedimento procedimento, DentistaSelecionado dentistaSelecionado, BindingResult result, RedirectAttributes redirect) {
 
 		procedimento = this.procedimentoRepository.save(procedimento);
 
@@ -62,41 +61,44 @@ public class ProcedimentoController {
 	}
 	
 	@PostMapping(params= "insertdent")
-    public ModelAndView insertproc(Procedimento procedimento, Dentista nvdentistahabilitado, BindingResult result, RedirectAttributes redirect) {
+    public ModelAndView insertproc(Procedimento procedimento, DentistaSelecionado dentistaSelecionado, BindingResult result, RedirectAttributes redirect) {
         List<Dentista> listaDentista = this.dentistaRepository.findAll();
         
-    	procedimento.getListaDentistasAutorizados().add(nvdentistahabilitado);
+		procedimento.getListaDentistasAutorizados().add(this.dentistaRepository.getOne(dentistaSelecionado.getDentistaSelecionado().getId()));
     
         HashMap<String, Object> dados = new HashMap<String, Object>();
         dados.put("listadentistas", listaDentista);
-        dados.put("nvdentistahabilitado", new Dentista());
+        dados.put("dentistaSelecionado", new DentistaSelecionado());
         
         
         return new ModelAndView("procedimento/form",dados);
     }
-    /*
 	@PostMapping(params= {"removedent"})
-    public ModelAndView removeproc(@RequestParam(name = "removeproc") int index, Consulta consulta, ProcedimentoRealizado novoprocrealizado, BindingResult result, RedirectAttributes redirect) {
-        List<Medico> listaMedico = this.medicoRepository.findAll();
-        List<Paciente> listaPaciente = this.pacienteRepository.findAll();
-        List<Procedimento> listaProcedimento = this.procedimentoRepository.findAll();
+    public ModelAndView removeproc(@RequestParam(name = "removedent") int index, Procedimento procedimento, DentistaSelecionado dentistaSelecionado, BindingResult result, RedirectAttributes redirect) {
+		List<Dentista> listaDentista = this.dentistaRepository.findAll();
         
-        consulta.getListaProcedimentos().remove(index);
     
+		procedimento.getListaDentistasAutorizados().remove(index);
+		
         HashMap<String, Object> dados = new HashMap<String, Object>();
-        dados.put("consulta", consulta);
-        dados.put("listaMedico", listaMedico);
-        dados.put("listaPaciente", listaPaciente);
-        dados.put("listaProcedimento", listaProcedimento);
-        dados.put("novoprocrealizado", new ProcedimentoRealizado());
+        dados.put("listadentistas", listaDentista);
+        dados.put("dentistaSelecionado", new DentistaSelecionado());
         
         
-        return new ModelAndView("consulta/form",dados);
+        return new ModelAndView("procedimento/form",dados);
     }
-*/
+
 	@GetMapping(value = "/alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Procedimento procedimento) {
-		return new ModelAndView("procedimento/form", "procedimento", procedimento);
+		List<Dentista> listaDentista = this.dentistaRepository.findAll();
+    
+        HashMap<String, Object> dados = new HashMap<String, Object>();
+        dados.put("listadentistas", listaDentista);
+        dados.put("dentistaSelecionado", new DentistaSelecionado());
+        dados.put("procedimento", procedimento);
+        
+        
+        return new ModelAndView("procedimento/form",dados);
 	}
 
 	@GetMapping(value = "remover/{id}")
