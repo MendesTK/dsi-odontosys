@@ -27,11 +27,11 @@
 				<div class="card">
 					<div class="card-header">Vincluar Dentista</div>
 					<div class="card-body" >
-						<div class="container" >
+						<div class="container" th:object="${dentistaSelecionado}">
 							<div class="row">
 								<div class="col-sm">
-									<select class="form-control" id="slcDentista" th:object="${nvdentistahabilitado}"
-										th:field="${nvdentistahabilitado.id}">
+									<select class="form-control" id="slcDentista" 
+										th:field="${dentistaSelecionado.dentistaSelecionado}">
 										<option th:each="umDent : ${listadentistas}"
 											th:value="${umDent.id}" th:text="${umDent.nome}"
 											th:selected="${umDent.id == nvdentistahabilitado}"
@@ -40,7 +40,7 @@
 								</div>
 
 								<div class="col-sm">
-									<button type="submit" name="insertdent" class="btn btn-primary">Inserir
+									<button type="submit" name="insertdent" class="btn btn-primary" >Inserir
 										item</button>
 								</div>
 							</div>
@@ -61,9 +61,7 @@
 							<tr scope="row"
 								th:each="umdentista, stat : ${procedimento.listaDentistasAutorizados}">
 								<input type="hidden"
-									th:field="${procedimento.listaDentistasAutorizados[__${stat.index}__].nome}" />
-								<input type="hidden"
-									th:field="${procedimento.listaDentistasAutorizados[__${stat.index}__].cpf}" />
+									th:field="${procedimento.listaDentistasAutorizados[__${stat.index}__]}" />
 								<td th:text="${umdentista.nome}"></td>
 								<td th:text="${umdentista.cpf}"></td>
 								<td>
@@ -75,7 +73,7 @@
 					</table>
 
 
-					<button type="submit" class="btn btn-primary">Enviar</button>
+					<button type="submit" class="btn btn-primary" name="save">Enviar</button>
 			</form>
 		</div>
 	</div>
