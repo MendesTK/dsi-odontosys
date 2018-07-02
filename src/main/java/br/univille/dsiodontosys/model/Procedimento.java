@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Procedimento {
@@ -28,6 +29,7 @@ public class Procedimento {
 	private String nome;
 	private String descricao;
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "H:mm")
 	private Date duracaoAproximada;
 	private float valor;
 	private float desconto;

@@ -7,40 +7,57 @@
 	<div class="container">
 		<nav th:replace="layout :: menu">(menu)</nav>
 		<div class="border border-dark">
-			<form th:action="@{/procedimento/(form)}" 
-				action="#" method="post">
+			<form th:action="@{/procedimento/(form)}" action="#" method="post">
 				<div th:object="${procedimento}">
 					<input type="hidden" id="txtid" th:field="${procedimento.id}" />
-	
+
 					<div class="form-group">
 						<label for="txtnome">Nome</label> <input type="text"
 							th:field="${procedimento.nome}" class="form-control" id="txtnome"
 							placeholder="Nome">
 					</div>
-	
+
 					<div class="form-group">
 						<label for="txtdescricao">Descrição</label>
-						<textarea th:field="${procedimento.descricao}" class="form-control"
-							id="txtdescricao" rows="3" placeholder="Descrição"></textarea>
+						<textarea th:field="${procedimento.descricao}"
+							class="form-control" id="txtdescricao" rows="3"
+							placeholder="Descrição"></textarea>
 					</div>
+
+					<div class="col-md-8">
+						<div class="form-group">
+							<label for="data">Duração Aproximada</label>
+							<div class="input-group date" id="datetimepicker1"
+								data-target-input="nearest">
+								<input type="text" class="form-control datetimepicker-input"
+									data-target="#datetimepicker1" th:field="*{duracaoAproximada}" />
+								<div class="input-group-append" data-target="#datetimepicker1"
+									data-toggle="datetimepicker">
+									<div class="input-group-text">
+										<i class="fa fa-calendar"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 				<div class="card">
 					<div class="card-header">Vincluar Dentista</div>
-					<div class="card-body" >
+					<div class="card-body">
 						<div class="container" th:object="${dentistaSelecionado}">
 							<div class="row">
 								<div class="col-sm">
-									<select class="form-control" id="slcDentista" 
+									<select class="form-control" id="slcDentista"
 										th:field="${dentistaSelecionado.dentistaSelecionado}">
 										<option th:each="umDent : ${listadentistas}"
 											th:value="${umDent.id}" th:text="${umDent.nome}"
-											th:selected="${umDent.id == nvdentistahabilitado}"
-											></option>
+											th:selected="${umDent.id == nvdentistahabilitado}"></option>
 									</select>
 								</div>
 
 								<div class="col-sm">
-									<button type="submit" name="insertdent" class="btn btn-primary" >Inserir
+									<button type="submit" name="insertdent" class="btn btn-primary">Inserir
 										item</button>
 								</div>
 							</div>
@@ -89,6 +106,16 @@
 					text : input
 				}
 			}
+		});
+	</script>
+	
+	<script type="text/javascript">
+		$(function() {
+			$('#datetimepicker1').datetimepicker({
+				locale : 'pt-br',
+				format : "HH:mm",
+				format: 'LT'
+			});
 		});
 	</script>
 
