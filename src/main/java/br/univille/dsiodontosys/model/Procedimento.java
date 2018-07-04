@@ -29,10 +29,10 @@ public class Procedimento {
 	private String nome;
 	private String descricao;
 	@Temporal(value = TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "H:mm")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date duracaoAproximada;
-	private float valor;
-	private float desconto;
+	private String valor;
+	private String desconto;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "procedimento_id")
@@ -70,19 +70,19 @@ public class Procedimento {
 		this.duracaoAproximada = duracaoAproximada;
 	}
 
-	public float getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 
-	public float getDesconto() {
+	public String getDesconto() {
 		return desconto;
 	}
 
-	public void setDesconto(float desconto) {
+	public void setDesconto(String desconto) {
 		this.desconto = desconto;
 	}
 

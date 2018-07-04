@@ -1,8 +1,5 @@
 package br.univille.dsiodontosys.valueobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.univille.dsiodontosys.model.Dentista;
 
 public class DentistaSelecionado {

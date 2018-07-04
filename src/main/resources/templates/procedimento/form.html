@@ -11,61 +11,54 @@
 				<div th:object="${procedimento}">
 					<input type="hidden" id="txtid" th:field="${procedimento.id}" />
 
-					<div class="form-group">
+					<div class="form-group col-md-8">
 						<label for="txtnome">Nome</label> <input type="text"
 							th:field="${procedimento.nome}" class="form-control" id="txtnome"
 							placeholder="Nome">
 					</div>
 
-					<div class="form-group">
+					<div class="form-group col-md-8">
 						<label for="txtdescricao">Descrição</label>
 						<textarea th:field="${procedimento.descricao}"
 							class="form-control" id="txtdescricao" rows="3"
 							placeholder="Descrição"></textarea>
 					</div>
 
-					<div class="col-md-8">
-						<div class="form-group">
-							<label for="data">Duração Aproximada</label>
-							<div class="input-group date" id="datetimepicker1"
-								data-target-input="nearest">
-								<input type="text" class="form-control datetimepicker-input"
-									data-target="#datetimepicker1" th:field="*{duracaoAproximada}" />
-								<div class="input-group-append" data-target="#datetimepicker1"
-									data-toggle="datetimepicker">
-									<div class="input-group-text">
-										<i class="fa fa-calendar"></i>
-									</div>
+
+					<div class="form-group col-md-8">
+						<label for="data">Duração Aproximada</label>
+						<div class="input-group date" id="datetimepicker1"
+							data-target-input="nearest">
+							<input type="text" class="form-control datetimepicker-input"
+								data-target="#datetimepicker1" th:field="*{duracaoAproximada}" />
+							<div class="input-group-append" data-target="#datetimepicker1"
+								data-toggle="datetimepicker">
+								<div class="input-group-text">
+									<i class="fa fa-clock-o"></i>
 								</div>
 							</div>
 						</div>
 					</div>
+
+
+
+					<div class="form-group col-md-8">
+						<label for="valor">Valor</label> <input type="text"
+							th:field="${procedimento.valor}" class="form-control" id="valor"
+							placeholder="Valor do Procedimento">
+					</div>
+					
+					<div class="form-group col-md-8">
+						<label for="desconto">Desconto</label> <input type="text"
+							th:field="${procedimento.desconto}" class="form-control" id="desconto"
+							placeholder="Valor do Desconto">
+					</div>
+
 
 				</div>
-				<div class="card">
-					<div class="card-header">Vincluar Dentista</div>
-					<div class="card-body">
-						<div class="container" th:object="${dentistaSelecionado}">
-							<div class="row">
-								<div class="col-sm">
-									<select class="form-control" id="slcDentista"
-										th:field="${dentistaSelecionado.dentistaSelecionado}">
-										<option th:each="umDent : ${listadentistas}"
-											th:value="${umDent.id}" th:text="${umDent.nome}"
-											th:selected="${umDent.id == nvdentistahabilitado}"></option>
-									</select>
-								</div>
 
-								<div class="col-sm">
-									<button type="submit" name="insertdent" class="btn btn-primary">Inserir
-										item</button>
-								</div>
-							</div>
-						</div>
-						<br>
-					</div>
-
-
+				<div class="col-md-8">
+					<div class="card-header">Dentistas Vinculados</div>
 					<table class="table">
 						<thead class="thead-light">
 							<tr>
@@ -88,6 +81,33 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+
+				<div class="col-md-8">
+					<div class="card">
+						<div class="card-header">Vincluar Dentista</div>
+						<div class="card-body">
+							<div class="container" th:object="${dentistaSelecionado}">
+								<div class="row">
+									<div class="col-sm">
+										<select class="form-control" id="slcDentista"
+											th:field="${dentistaSelecionado.dentistaSelecionado}">
+											<option value="">Selecione o Dentista</option>
+											<option th:each="umDent : ${listadentistas}"
+												th:value="${umDent.id}" th:text="${umDent.nome}"
+												th:selected="${umDent.id == nvdentistahabilitado}"></option>
+										</select>
+									</div>
+
+									<div class="col-sm">
+										<button type="submit" name="insertdent"
+											class="btn btn-primary">Inserir item</button>
+									</div>
+								</div>
+							</div>
+							<br>
+						</div>
+					</div>
 
 
 					<button type="submit" class="btn btn-primary" name="save">Enviar</button>
@@ -108,13 +128,35 @@
 			}
 		});
 	</script>
-	
+
+	<script type="text/javascript">
+		$('#valor').priceFormat({
+			prefix : 'R$ ',
+			centsSeparator : ',',
+			thousandsSeparator : '.',
+			clearPrefix : true
+		});
+		
+		$('#desconto').priceFormat({
+			prefix : 'R$ ',
+			centsSeparator : ',',
+			thousandsSeparator : '.',
+			clearPrefix : true
+		});
+	</script>
+
+	<script type="text/javascript">
+		$("#float").click(function() {
+			alert($('#valor').priceToFloat());
+		});
+	</script>
+
 	<script type="text/javascript">
 		$(function() {
 			$('#datetimepicker1').datetimepicker({
 				locale : 'pt-br',
 				format : "HH:mm",
-				format: 'LT'
+				format : 'LT'
 			});
 		});
 	</script>

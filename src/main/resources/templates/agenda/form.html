@@ -23,21 +23,32 @@
 						</select>
 					</div>
 				</div>
+
 				
-				<div class="col-md-8">
-					<div class="form-group">
+					<div class="form-group col-md-8">
 						<label for="txtProcedimento">Procedimento</label> <select
-							class="form-control" id="listProcedimentos" th:field="*{procedimento}"
-							required>
+							class="form-control" id="listProcedimentos"
+							th:field="*{procedimento}" required>
 							<option value="">Selecione o procedimento</option>
 							<option th:each="umprocedimento : ${listaprocedimentos}"
 								th:value="${umprocedimento.id}" th:text="${umprocedimento.nome}"></option>
 						</select>
 					</div>
-				</div>
+					
+					<!--
+					<div class="form-group col-md-8">
+						<label for="txtDentista">Dentista</label> <select
+							class="form-control" id="listProcedimentos"
+							th:field="*{dentistaResponsavel}" required>
+							<option value="">Selecione o dentista</option>
+							<option th:each="umprocedimento : ${listaprocedimentos.listaDentistasAutorizados}"
+								th:value="${umprocedimento.nome}" th:text="${umprocedimento.nome}"></option>
+						</select>
+					</div>  
+					-->
+
 				
-				<div class="col-md-8">
-					<div class="form-group">
+					<div class="form-group col-md-8">
 						<label for="data">Data</label>
 						<div class="input-group date" id="datetimepicker1"
 							data-target-input="nearest">
@@ -51,7 +62,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+
 
 
 
