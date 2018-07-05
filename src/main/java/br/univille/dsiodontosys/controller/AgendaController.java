@@ -56,11 +56,12 @@ public class AgendaController {
 		
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
-		//List<Dentista> listaDentistas = dentistaRepository.findAllById(index);
+		List<Dentista> listaDentistas = dentistaRepository.findAll();
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listapacientes", listaPacientes);
 		dados.put("listaprocedimentos", listaProcedimentos);
+		dados.put("listadentistas", listaDentistas);
 		return new ModelAndView("agenda/form", dados);
 	}
 	
@@ -75,9 +76,13 @@ public class AgendaController {
 	@GetMapping(value = "/alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Agenda agenda) {
 		List<Paciente> listaPacientes = this.pacienteRepository.findAll();
+		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
+		List<Dentista> listaDentistas = dentistaRepository.findAll();
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("agenda", agenda);
 		dados.put("listapacientes", listaPacientes);
+		dados.put("listaprocedimentos", listaProcedimentos);
+		dados.put("listadentistas", listaDentistas);
 		
 		return new ModelAndView("agenda/formalterar", dados);
 	}

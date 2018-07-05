@@ -3,6 +3,7 @@ package br.univille.dsiodontosys.controller;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,7 +21,6 @@ import br.univille.dsiodontosys.model.Estoque;
 import br.univille.dsiodontosys.model.Material;
 import br.univille.dsiodontosys.repository.EstoqueRepository;
 import br.univille.dsiodontosys.repository.MaterialRepository;
-import br.univille.dsiodontosys.controller.MaterialController;
 
 @Controller
 @RequestMapping("/estoque")
@@ -53,8 +53,19 @@ public class EstoqueController {
 	public ModelAndView save(@Valid Estoque estoque, BindingResult result, RedirectAttributes redirect) {
 		Date dataHoraAtual = new Date();
 		estoque.setData(dataHoraAtual);
-		MaterialController atualizaEstoque = new MaterialController();
-		atualizaEstoque.atualizaEstoque(estoque.getMaterialMovimentado().getId(), estoque.getQuantidade());
+		
+		Optional<Material> material = materialRepository.findById(estoque.getMaterialMovimentado().getId());
+		
+		if(material.isPresent()) {
+			Material mat = material.get();
+			if(estoque.getMovimento().equalsIgnoreCase("entrada")) {
+				mat.setTotalEstoque(mat.getTotalEstoque() + estoque.getQuantidade());
+			}else {
+				mat.setTotalEstoque(mat.getTotalEstoque() - estoque.getQuantidade());
+			}
+			materialRepository.save(mat);
+		}
+		
 		estoque = this.estoqueRepository.save(estoque);
 
 		return new ModelAndView("redirect:/estoque");

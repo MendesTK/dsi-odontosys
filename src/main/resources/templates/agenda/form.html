@@ -12,56 +12,61 @@
 
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
-				<div class="col-md-8">
-					<div class="form-group">
-						<label for="txtPaciente">Paciente</label> <select
-							class="form-control" id="listPaciente" th:field="*{paciente}"
-							required>
-							<option value="">Selecione o paciente</option>
-							<option th:each="umpaciente : ${listapacientes}"
-								th:value="${umpaciente.id}" th:text="${umpaciente.nome}"></option>
-						</select>
-					</div>
+				<div class="form-group col-md-8">
+					<label for="txtPaciente">Paciente</label> <select
+						class="form-control" id="listPaciente" th:field="*{paciente}"
+						required>
+						<option value="">Selecione o paciente</option>
+						<option th:each="umpaciente : ${listapacientes}"
+							th:value="${umpaciente.id}" th:text="${umpaciente.nome}"></option>
+					</select>
+				</div>
+				
+				<div class="form-group col-md-8">
+					<label for="slcstatus">Status da Consulta</label> <select class="form-control"
+						id="slcstatus" th:field="*{status}">
+						<option th:value="Pendente">Pendente</option>
+						<option th:value="Finalizado">Finalizado</option>
+					</select>
 				</div>
 
-				
-					<div class="form-group col-md-8">
-						<label for="txtProcedimento">Procedimento</label> <select
-							class="form-control" id="listProcedimentos"
-							th:field="*{procedimento}" required>
-							<option value="">Selecione o procedimento</option>
-							<option th:each="umprocedimento : ${listaprocedimentos}"
-								th:value="${umprocedimento.id}" th:text="${umprocedimento.nome}"></option>
-						</select>
-					</div>
-					
-					<!--
-					<div class="form-group col-md-8">
-						<label for="txtDentista">Dentista</label> <select
-							class="form-control" id="listProcedimentos"
-							th:field="*{dentistaResponsavel}" required>
-							<option value="">Selecione o dentista</option>
-							<option th:each="umprocedimento : ${listaprocedimentos.listaDentistasAutorizados}"
-								th:value="${umprocedimento.nome}" th:text="${umprocedimento.nome}"></option>
-						</select>
-					</div>  
-					-->
+				<div class="form-group col-md-8">
+					<label for="txtProcedimento">Procedimento</label> <select
+						class="form-control" id="listProcedimentos"
+						th:field="*{procedimento}" required>
+						<option value="">Selecione o procedimento</option>
+						<option th:each="umprocedimento : ${listaprocedimentos}"
+							th:value="${umprocedimento.id}" th:text="${umprocedimento.nome}"></option>
+					</select>
+				</div>
 
-				
-					<div class="form-group col-md-8">
-						<label for="data">Data</label>
-						<div class="input-group date" id="datetimepicker1"
-							data-target-input="nearest">
-							<input type="text" class="form-control datetimepicker-input"
-								data-target="#datetimepicker1" th:field="*{data}" />
-							<div class="input-group-append" data-target="#datetimepicker1"
-								data-toggle="datetimepicker">
-								<div class="input-group-text">
-									<i class="fa fa-calendar"></i>
-								</div>
+
+				<div class="form-group col-md-8">
+					<label for="txtDentista">Dentista</label> <select
+						class="form-control" id="listProcedimentos"
+						th:field="*{dentistaResponsavel}" required>
+						<option value="">Selecione o dentista</option>
+						<option th:each="umdentista : ${listadentistas}"
+							th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
+					</select>
+				</div>
+
+
+
+				<div class="form-group col-md-8">
+					<label for="data">Data</label>
+					<div class="input-group date" id="datetimepicker1"
+						data-target-input="nearest">
+						<input type="text" class="form-control datetimepicker-input"
+							data-target="#datetimepicker1" th:field="*{data}" />
+						<div class="input-group-append" data-target="#datetimepicker1"
+							data-toggle="datetimepicker">
+							<div class="input-group-text">
+								<i class="fa fa-calendar"></i>
 							</div>
 						</div>
 					</div>
+				</div>
 
 
 

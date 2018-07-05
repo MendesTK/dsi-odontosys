@@ -32,10 +32,6 @@ public class MaterialController {
 
 		return new ModelAndView("material/index", "listamat", listaMaterial);
 	}
-	
-	public MaterialController() {
-		
-	}
 
 	@GetMapping("/novo")
 	public String createForm(@ModelAttribute Material material) {
@@ -61,17 +57,4 @@ public class MaterialController {
 		return new ModelAndView("redirect:/material");
 	}
 	
-	public void atualizaEstoque(long id, int quantidade) {
-
-		if(this.materialRepository.findById(id).isPresent()) {
-			Material material = this.materialRepository.findById(id).get();
-			int qtdAtual = material.getTotalEstoque();
-			int qtdAtualizada = qtdAtual + (quantidade);
-			material.setTotalEstoque(qtdAtualizada);
-			material = this.materialRepository.save(material);
-		}
-		
-		
-		
-	}
 }

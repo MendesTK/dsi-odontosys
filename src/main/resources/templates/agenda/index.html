@@ -13,14 +13,20 @@
 				<thead class="thead-light">
 					<tr>
 						<th scope="col">Nome</th>
+						<th scope="col">Status</th>
 						<th scope="col">Data</th>
+						<th scope="col">Procedimento</th>
+						<th scope="col">Dentista Responsável</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr scope="row" th:each="umacons : ${listacons}">
 						<td th:text="${umacons.paciente.nome}"></td>
+						<td th:text="${umacons.status}"></td>
 						<td th:text="${#dates.format(umacons.data, 'dd/MM/yyyy HH:mm')}"></td>
+						<td th:text="${umacons.procedimento.nome}"></td>
+						<td th:text="${umacons.dentistaResponsavel.nome}"></td>
 						<td><a href="form.html"
 							th:href="@{'/agenda/alterar/' + ${umacons.id}}"
 							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a
