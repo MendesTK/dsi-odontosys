@@ -12,15 +12,21 @@
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
 				<div class="form-group col-md-8">
-					<label for="txtnomeMaterial">Nome do Material</label> <input type="text"
-						th:field="*{nomeMaterial}" class="form-control" id="txtnomeMaterial"
-						placeholder="Nome">
+					<label for="txtnomeMaterial">Nome do Material</label> <input
+						type="text" th:field="*{nomeMaterial}" class="form-control"
+						id="txtnomeMaterial" placeholder="Nome">
 				</div>
 
 				<div class="form-group col-md-8">
 					<label for="txtdescricao">Descrição</label>
 					<textarea th:field="*{descricao}" class="form-control"
 						id="txtdescricao" rows="3" placeholder="Descrição"></textarea>
+				</div>
+
+				<div class="form-group col-md-8">
+					<label for="txttotalEstoque">Quantidade Atual em Estoque</label> <input
+						type="text" th:field="*{totalEstoque}" class="form-control"
+						id="txttotalEstoque" placeholder="" disabled>
 				</div>
 
 				<button type="submit" class="btn btn-primary">Enviar</button>

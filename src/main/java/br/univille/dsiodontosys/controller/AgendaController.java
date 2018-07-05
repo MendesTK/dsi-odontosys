@@ -21,6 +21,7 @@ import br.univille.dsiodontosys.model.Dentista;
 import br.univille.dsiodontosys.model.Paciente;
 import br.univille.dsiodontosys.model.Procedimento;
 import br.univille.dsiodontosys.repository.AgendaRepository;
+import br.univille.dsiodontosys.repository.DentistaRepository;
 import br.univille.dsiodontosys.repository.PacienteRepository;
 import br.univille.dsiodontosys.repository.ProcedimentoRepository;
 
@@ -37,6 +38,9 @@ public class AgendaController {
 	@Autowired
 	private ProcedimentoRepository procedimentoRepository;
 	
+	@Autowired
+	private DentistaRepository dentistaRepository;
+	
 	
 	@GetMapping("")
 	public ModelAndView index() {
@@ -52,6 +56,8 @@ public class AgendaController {
 		
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
+		//List<Dentista> listaDentistas = dentistaRepository.findAllById(index);
+		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listapacientes", listaPacientes);
 		dados.put("listaprocedimentos", listaProcedimentos);

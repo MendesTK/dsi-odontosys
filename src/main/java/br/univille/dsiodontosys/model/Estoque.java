@@ -30,16 +30,6 @@ public class Estoque {
 	private int quantidade;
 	private String movimento;
 
-	private int estoqueTotal;
-
-	public int getEstoqueTotal() {
-		return estoqueTotal;
-	}
-
-	public void setEstoqueTotal(int estoqueTotal) {
-		this.estoqueTotal = estoqueTotal;
-	}
-
 	public long getId() {
 		return id;
 	}

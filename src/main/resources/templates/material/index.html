@@ -14,6 +14,7 @@
 					<tr>
 						<th scope="col">Nome</th>
 						<th scope="col">Descrição</th>
+						<th scope="col">Quantidade em Estoque</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -21,6 +22,7 @@
 					<tr scope="row" th:each="ummat : ${listamat}">
 						<td th:text="${ummat.nomeMaterial}"></td>
 						<td th:text="${ummat.descricao}"></td>
+						<td th:text="${ummat.totalEstoque}"></td>
 						<td><a href="form.html"
 							th:href="@{'/material/alterar/' + ${ummat.id}}"
 							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a

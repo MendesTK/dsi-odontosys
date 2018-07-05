@@ -18,6 +18,15 @@ public class Material {
 	@Length(min = 2, max = 100, message = "O tamanho do nome deve ser entre {min} e {max}")
 	private String nomeMaterial;
 	private String descricao;
+	private int totalEstoque;
+
+	public int getTotalEstoque() {
+		return totalEstoque;
+	}
+
+	public void setTotalEstoque(int totalEstoque) {
+		this.totalEstoque = totalEstoque;
+	}
 
 	public long getId() {
 		return id;
