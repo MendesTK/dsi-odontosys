@@ -9,8 +9,8 @@
 <link rel="stylesheet"
 	th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" />
 <body>
-	<nav th:fragment="menu"
-		class="navbar navbar-light navbar-expand-lg" style="background-color: #81F7F3;">
+	<nav th:fragment="menu" class="navbar navbar-light navbar-expand-lg"
+		style="background-color: #81F7F3;">
 		<a class="navbar-brand" href="#">Sistema</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarTogglerDemo02"
@@ -23,49 +23,34 @@
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link" href="/">Início</a>
 				</li>
-			</ul>
-		</div>
 
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link" href="/agenda">Agenda</a>
 				</li>
-			</ul>
-		</div>
 
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link"
 					href="/paciente">Paciente</a></li>
-			</ul>
-		</div>
 
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link"
 					href="/dentista">Dentista</a></li>
-			</ul>
-		</div>
 
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link"
 					href="/procedimento">Procedimento</a></li>
-			</ul>
-		</div>
 
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link"
 					href="/material">Material</a></li>
+
+				<li class="nav-item active"><a class="nav-link" href="/estoque">Estoque</a></li>
+
 			</ul>
-		</div>
-		
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link"
-					href="/estoque">Estoque</a></li>
-			</ul>
+
+			<spawn th:inline="text" class="navbar-brand">Olá
+			[[${#httpServletRequest.remoteUser}]]!</spawn>
+			<form th:action="@{/logout}" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" /> <input type="submit" value="Sair"
+					class="btn" />
+			</form>
+
 		</div>
 
 	</nav>
