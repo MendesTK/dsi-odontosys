@@ -68,9 +68,22 @@ public class AgendaController {
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid Agenda agenda, BindingResult result, RedirectAttributes redirect) {
 
+		List<Paciente> listaPacientes = pacienteRepository.findAll();
+		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
+		List<Dentista> listaDentistas = dentistaRepository.findAll();
+		
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("listapacientes", listaPacientes);
+		dados.put("listaprocedimentos", listaProcedimentos);
+		dados.put("listadentistas", listaDentistas);
+		dados.put("agenda", agenda);
+		
+		
+		return new ModelAndView("agenda/form", dados);
+		/*
 		agenda = this.agendaRepository.save(agenda);
-
-		return new ModelAndView("redirect:/agenda");
+		
+		return new ModelAndView("redirect:/agenda");*/
 	}
 	
 	@GetMapping(value = "/alterar/{id}")

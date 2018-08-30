@@ -8,7 +8,7 @@
 		<nav th:replace="layout :: menu">(menu)</nav>
 		<div class="border border-dark">
 			<form th:action="@{/agenda/(form)}" th:object="${agenda}" action="#"
-				method="post">
+				method="post" id="formAgenda">
 
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
@@ -42,11 +42,12 @@
 
 
 				<div class="form-group col-md-8">
-					<label for="txtDentista">Dentista</label> <select
+					<label for="txtDentista">Dentista</label> 
+					<select
 						class="form-control" id="listProcedimentos"
 						th:field="*{dentistaResponsavel}" required>
 						<option value="">Selecione o dentista</option>
-						<option th:each="umdentista : ${listadentistas}"
+						<option th:each="umdentista : ${procedimento.listaDentistasAutorizados}"
 							th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
 					</select>
 				</div>
@@ -82,6 +83,10 @@
 			$('#datetimepicker1').datetimepicker({
 				locale : 'pt-br',
 				format : "DD/MM/YYYY HH:mm"
+			});
+			
+			$('#listProcedimentos').on("change", function(){
+				$("#formAgenda").submit();
 			});
 		});
 	</script>
