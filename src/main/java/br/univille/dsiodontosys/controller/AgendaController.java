@@ -1,5 +1,6 @@
 package br.univille.dsiodontosys.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,19 +50,40 @@ public class AgendaController {
 		return new ModelAndView("agenda/index", "listacons", listaConsulta);
 	}
 	
-	
 	@GetMapping("/AgendarConsulta")
 	public ModelAndView agendaConsulta(@ModelAttribute Agenda agenda) {
 		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
 		
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
-		List<Dentista> listaDentistas = dentistaRepository.findAll();
+		List<Dentista> listaDentistas = new ArrayList<Dentista>();
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listapacientes", listaPacientes);
 		dados.put("listaprocedimentos", listaProcedimentos);
 		dados.put("listadentistas", listaDentistas);
+		
+		return new ModelAndView("agenda/form", dados);
+	}
+	
+	@PostMapping(params = "form",value="/atualizarmedicos")
+	public ModelAndView atualizarmedicos(Agenda agenda, BindingResult result, RedirectAttributes redirect) {
+		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
+		
+		List<Dentista> listaDentistas = new ArrayList<Dentista>();
+		
+		if (agenda.getProcedimento()!= null) {
+			listaDentistas.addAll(agenda.getProcedimento().getListaDentistasAutorizados());
+		}
+		
+		List<Paciente> listaPacientes = pacienteRepository.findAll();
+		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
+		
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("listapacientes", listaPacientes);
+		dados.put("listaprocedimentos", listaProcedimentos);
+		dados.put("listadentistas", listaDentistas);
+		
 		return new ModelAndView("agenda/form", dados);
 	}
 	
@@ -79,11 +101,9 @@ public class AgendaController {
 		dados.put("agenda", agenda);
 		
 		
-		return new ModelAndView("agenda/form", dados);
-		/*
 		agenda = this.agendaRepository.save(agenda);
 		
-		return new ModelAndView("redirect:/agenda");*/
+		return new ModelAndView("redirect:/agenda");
 	}
 	
 	@GetMapping(value = "/alterar/{id}")

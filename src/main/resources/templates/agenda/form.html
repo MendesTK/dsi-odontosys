@@ -43,12 +43,13 @@
 
 				<div class="form-group col-md-8">
 					<label for="txtDentista">Dentista</label> 
-					<select
+					
+					<select 
 						class="form-control" id="listProcedimentos"
 						th:field="*{dentistaResponsavel}" required>
 						<option value="">Selecione o dentista</option>
-						<option th:each="umdentista : ${procedimento.listaDentistasAutorizados}"
-							th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
+						<option th:each="umdentista : ${listadentistas}"
+							    th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
 					</select>
 				</div>
 
@@ -86,7 +87,7 @@
 			});
 			
 			$('#listProcedimentos').on("change", function(){
-				$("#formAgenda").submit();
+				$("#formAgenda").attr('action', "/agenda/atualizarmedicos?form").submit();
 			});
 		});
 	</script>

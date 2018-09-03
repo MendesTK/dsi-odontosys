@@ -36,7 +36,7 @@ public class Procedimento {
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "procedimento_id")
-	List<Dentista> listaDentistasAutorizados = new ArrayList<Dentista>();
+	private List<Dentista> listaDentistasAutorizados = new ArrayList<Dentista>();
 
 	public long getId() {
 		return id;
