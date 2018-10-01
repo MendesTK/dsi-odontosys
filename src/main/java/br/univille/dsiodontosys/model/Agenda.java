@@ -3,7 +3,6 @@ package br.univille.dsiodontosys.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,13 +30,13 @@ public class Agenda {
 	@DateTimeFormat(pattern = "dd/MM/yyyy H:mm")
 	private Date data;
 
-	//@NotNull
+	// @NotNull
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private Procedimento procedimento;
 
-	//@NotNull
-	@Column(length = 50)
-	private String status;
+	@NotNull
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+	private StatusConsulta status;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private Dentista dentistaResponsavel;
@@ -74,11 +73,11 @@ public class Agenda {
 		this.procedimento = procedimento;
 	}
 
-	public String getStatus() {
+	public StatusConsulta getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusConsulta status) {
 		this.status = status;
 	}
 

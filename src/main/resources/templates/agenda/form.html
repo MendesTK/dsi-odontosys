@@ -23,10 +23,12 @@
 				</div>
 				
 				<div class="form-group col-md-8">
-					<label for="slcstatus">Status da Consulta</label> <select class="form-control"
-						id="slcstatus" th:field="*{status}">
-						<option th:value="Pendente">Pendente</option>
-						<option th:value="Finalizado">Finalizado</option>
+					<label for="txtStatusCons">Status da Consulta</label> <select
+						class="form-control" id="listStatusConsulta" th:field="*{status}"
+						required>
+						<option value="">Selecione o paciente</option>
+						<option th:each="umstatus : ${listaStatusConsulta}"
+							th:value="${umstatus.id}" th:text="${umstatus.status}"></option>
 					</select>
 				</div>
 

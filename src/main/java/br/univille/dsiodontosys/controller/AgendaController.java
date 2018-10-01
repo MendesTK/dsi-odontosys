@@ -21,10 +21,12 @@ import br.univille.dsiodontosys.model.Agenda;
 import br.univille.dsiodontosys.model.Dentista;
 import br.univille.dsiodontosys.model.Paciente;
 import br.univille.dsiodontosys.model.Procedimento;
+import br.univille.dsiodontosys.model.StatusConsulta;
 import br.univille.dsiodontosys.repository.AgendaRepository;
 import br.univille.dsiodontosys.repository.DentistaRepository;
 import br.univille.dsiodontosys.repository.PacienteRepository;
 import br.univille.dsiodontosys.repository.ProcedimentoRepository;
+import br.univille.dsiodontosys.repository.StatusConsultaRepository;
 
 @Controller
 @RequestMapping("/agenda")
@@ -42,6 +44,9 @@ public class AgendaController {
 	@Autowired
 	private DentistaRepository dentistaRepository;
 	
+	@Autowired
+	private StatusConsultaRepository statusConsultaRepository;
+	
 	
 	@GetMapping("")
 	public ModelAndView index() {
@@ -55,11 +60,13 @@ public class AgendaController {
 		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
 		
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
+		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
 		List<Dentista> listaDentistas = new ArrayList<Dentista>();
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listapacientes", listaPacientes);
+		dados.put("listaStatusConsulta", listaStatus);
 		dados.put("listaprocedimentos", listaProcedimentos);
 		dados.put("listadentistas", listaDentistas);
 		
@@ -77,10 +84,12 @@ public class AgendaController {
 		}
 		
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
+		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listapacientes", listaPacientes);
+		dados.put("listaStatusConsulta", listaStatus);
 		dados.put("listaprocedimentos", listaProcedimentos);
 		dados.put("listadentistas", listaDentistas);
 		
