@@ -24,7 +24,7 @@ public class StartupEventListenerBean {
             SystemUser user = new SystemUser();
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("user"));
-            user.setType("ROLE_USER");
+            user.setRole("ROLE_USER");
             systemUserRepository.save(user);
         }
         
@@ -32,7 +32,7 @@ public class StartupEventListenerBean {
             SystemUser user = new SystemUser();
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("admin"));
-            user.setType("ROLE_ADMIN");
+            user.setRole("ROLE_ADMIN");
             systemUserRepository.save(user);
         }
 
