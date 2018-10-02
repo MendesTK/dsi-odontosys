@@ -35,6 +35,15 @@ public class StartupEventListenerBean {
             user.setRole("ROLE_ADMIN");
             systemUserRepository.save(user);
         }
+        
+        if(systemUserRepository.findByUsername("teste") == null) {
+            SystemUser user = new SystemUser();
+            user.setUsername("teste");
+            user.setPassword(passwordEncoder.encode("teste"));
+            user.setRole("ROLE_ADMIN");
+            user.setClientCredential(true);
+            systemUserRepository.save(user);
+        }
 
 
     }
