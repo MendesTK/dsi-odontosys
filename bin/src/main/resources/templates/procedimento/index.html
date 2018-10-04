@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<meta charset="UTF-8">
+<title>Procedimento</title>
+<body>
+	<div class="container">
+		<nav th:replace="layout :: menu">(menu)</nav>
+		<a href="form.html" th:href="@{/procedimento/novo}"
+			class="btn btn-primary btn-lg" role="button">Novo Procedimento</a>
+
+		<div class="border border-dark">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Procedimento</th>
+						<th scope="col">Descrição</th>
+						<th scope="col">Duração</th>
+						<th scope="col">Valor</th>
+						<th scope="col">Desconto</th>
+						<th scope="col">Dentistas Responsáveis</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr scope="row" th:each="umproc : ${listaproc}">
+						<td th:text="${umproc.nome}"></td>
+						<td>
+							<div style="word-wrap: break-word;" th:text="${umproc.descricao}">
+							</div>
+						</td>
+						
+						<td th:text="${#dates.format(umproc.duracaoAproximada, 'HH:mm')}"></td>
+						
+						<td th:text="${umproc.valor}"></td>
+						
+						<td th:text="${umproc.desconto}"></td>
+						
+						<td>
+							<ul scope="row"
+								th:each="umdentista : ${umproc.listaDentistasAutorizados}">
+								<li th:text="${umdentista.nome}"></li>
+							</ul>
+						</td>
+						<td><a href="form.html"
+							th:href="@{'/procedimento/alterar/' + ${umproc.id}}"
+							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a
+							href="#" class="btn btn-warning btn-lg" role="button"
+							data-toggle="modal" data-target="#confirmaExclusao"
+							th:data-id="${umproc.id}">Excluir</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal fade" id="confirmaExclusao" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Confirmação de exclusão</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">X</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Confirma a exclusão deste registro do procedimento?</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-warning btn-lg" id="btnConf"
+							role="button">Sim</a>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$('#confirmaExclusao').on(
+				'show.bs.modal',
+				function(event) {
+					var button = $(event.relatedTarget)
+					var recipient = button.data('id')
+					var modal = $(this)
+					modal.find('#btnConf').attr("href",
+							"/procedimento/remover/" + recipient)
+				})
+		/*]]>*/
+	</script>
+</body>
+</html>

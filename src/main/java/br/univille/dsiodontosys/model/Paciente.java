@@ -1,11 +1,14 @@
 package br.univille.dsiodontosys.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 
 @Entity
@@ -23,6 +26,17 @@ public class Paciente {
 	@Column(length = 14)
 	private String cpf;
 	private String endereco;
+	
+	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
+	private SystemUser user = new SystemUser();
+
+	public SystemUser getUser() {
+		return user;
+	}
+
+	public void setUser(SystemUser user) {
+		this.user = user;
+	}
 
 	public long getId() {
 		return id;

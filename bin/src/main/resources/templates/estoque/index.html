@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<meta charset="UTF-8">
+<title>Estoque</title>
+<body>
+	<div class="container">
+		<nav th:replace="layout :: menu">(menu)</nav>
+		<a href="form.html" th:href="@{/estoque/NovoMovimento}"
+			class="btn btn-primary btn-lg" role="button">Movimentar</a>
+		<div class="border border-dark">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Data</th>
+						<th scope="col">Material</th>
+						<th scope="col">Movimento</th>
+						<th scope="col">Quantidade Movimentada</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr scope="row" th:each="umMaterial : ${listaestoque}">
+						<td
+							th:text="${#dates.format(umMaterial.data, 'dd/MM/yyyy HH:mm')}"></td>
+						<td th:text="${umMaterial.materialMovimentado.nomeMaterial}"></td>
+						<td th:text="${umMaterial.movimento}"></td>
+						<td th:text="${umMaterial.quantidade}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+</body>
+</html>

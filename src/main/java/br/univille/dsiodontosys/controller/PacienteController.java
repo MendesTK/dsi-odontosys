@@ -43,6 +43,7 @@ public class PacienteController {
 	public ModelAndView save(@Valid Paciente paciente, BindingResult result, RedirectAttributes redirect) {
 
 		paciente = this.pacienteRepository.save(paciente);
+		
 
 		return new ModelAndView("redirect:/paciente");
 	}
