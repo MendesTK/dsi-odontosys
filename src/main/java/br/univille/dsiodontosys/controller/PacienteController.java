@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.dsiodontosys.model.Paciente;
+import br.univille.dsiodontosys.model.SystemUser;
 import br.univille.dsiodontosys.repository.PacienteRepository;
 
 @Controller
@@ -26,6 +28,9 @@ public class PacienteController {
 
 	@Autowired
 	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("")
 	public ModelAndView index() {
@@ -41,7 +46,10 @@ public class PacienteController {
 
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid Paciente paciente, BindingResult result, RedirectAttributes redirect) {
-
+		
+		paciente.getUser().setRole("ROLE_USER");
+		paciente.getUser().setPassword((passwordEncoder.encode(paciente.getUser().getPassword())));
+		
 		paciente = this.pacienteRepository.save(paciente);
 		
 
