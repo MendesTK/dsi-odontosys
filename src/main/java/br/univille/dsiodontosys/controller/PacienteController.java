@@ -1,6 +1,7 @@
 package br.univille.dsiodontosys.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.univille.dsiodontosys.model.Paciente;
 import br.univille.dsiodontosys.model.SystemUser;
 import br.univille.dsiodontosys.repository.PacienteRepository;
+import br.univille.dsiodontosys.repository.SystemUserRepository;
 
 @Controller
 @RequestMapping("/paciente")
@@ -30,7 +32,13 @@ public class PacienteController {
 	private PacienteRepository pacienteRepository;
 	
 	@Autowired
+	private SystemUserRepository systemUserRepository;
+
+	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	private String cpfAntigo;
+	private SystemUser localuser;
 
 	@GetMapping("")
 	public ModelAndView index() {
@@ -41,29 +49,65 @@ public class PacienteController {
 
 	@GetMapping("/novo")
 	public String createForm(@ModelAttribute Paciente paciente) {
+		paciente.setUser(new SystemUser());
 		return "paciente/form";
 	}
 
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid Paciente paciente, BindingResult result, RedirectAttributes redirect) {
-		
+		paciente.getUser().setUsername(paciente.getEmail());
 		paciente.getUser().setRole("ROLE_USER");
 		paciente.getUser().setPassword((passwordEncoder.encode(paciente.getUser().getPassword())));
-		
-		paciente = this.pacienteRepository.save(paciente);
-		
 
+		Optional<Paciente> cpfPaci = this.pacienteRepository.findByCpf(paciente.getCpf());
+		if (cpfPaci.isPresent()) {
+			System.out.println(cpfPaci.get().getCpf() + " já existe carai!");
+		} else {
+
+			paciente = this.pacienteRepository.save(paciente);
+		}
+
+		return new ModelAndView("redirect:/paciente");
+	}
+
+	@PostMapping(params = "formalterar")
+	public ModelAndView saveAlteracao(@Valid Paciente paciente, BindingResult result, RedirectAttributes redirect) {
+		localuser.setUsername(paciente.getEmail());
+		paciente.setUser(localuser);
+		Optional<Paciente> cpfPaci = this.pacienteRepository.findByCpf(paciente.getCpf());
+		if (cpfAntigo.equals(paciente.getCpf())) {
+			paciente = this.pacienteRepository.save(paciente);
+		} else if (cpfPaci.isPresent()) {
+			System.out.println(cpfPaci.get().getCpf() + " já existe carai!");
+		} else {
+			paciente = this.pacienteRepository.save(paciente);
+		}
+		return new ModelAndView("redirect:/paciente");
+	}
+	
+	@PostMapping(params = "formalterarsenha")
+	public ModelAndView saveAlterSenha(@Valid SystemUser systemUser, BindingResult result, RedirectAttributes redirect) {
+		systemUser = this.systemUserRepository.save(systemUser);
 		return new ModelAndView("redirect:/paciente");
 	}
 
 	@GetMapping(value = "/alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Paciente paciente) {
-		return new ModelAndView("paciente/form", "paciente", paciente);
+		cpfAntigo = paciente.getCpf();
+		localuser = paciente.getUser();
+		return new ModelAndView("paciente/formalterar", "paciente", paciente);
+	}
+	
+	@GetMapping(value = "/alterarsenha/{id}")
+	public ModelAndView alterarSenhaForm(@PathVariable("id") SystemUser systemUser) {
+		
+		return new ModelAndView("paciente/formalterarsenha", "systemUser", systemUser);
 	}
 
-	@GetMapping(value="remover/{id}")
-    public ModelAndView remover(@PathVariable ("id") Long id, RedirectAttributes redirect) {
-        this.pacienteRepository.deleteById(id);
-        return new ModelAndView("redirect:/paciente");
-    }
+	@GetMapping(value = "remover/{id}")
+	public ModelAndView remover(@PathVariable("id") Paciente paciente, RedirectAttributes redirect) {
+		this.pacienteRepository.deleteById(paciente.getId());
+		this.systemUserRepository.deleteById(paciente.getUser().getId());
+		return new ModelAndView("redirect:/paciente");
+	}
 }

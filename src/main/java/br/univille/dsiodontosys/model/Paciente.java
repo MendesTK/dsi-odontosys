@@ -26,9 +26,19 @@ public class Paciente {
 	@Column(length = 14)
 	private String cpf;
 	private String endereco;
+	private String email;
 	
 	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-	private SystemUser user = new SystemUser();
+	private SystemUser user;
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public SystemUser getUser() {
 		return user;
