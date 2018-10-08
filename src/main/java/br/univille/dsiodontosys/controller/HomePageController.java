@@ -29,9 +29,9 @@ public class HomePageController {
 		
 		for(GrantedAuthority item : colRoles) {
 			if(item.getAuthority().equals("ROLE_USER"))
-				return new ModelAndView("redirect:/paciente");
+				return new ModelAndView("redirect:/cliente-area");
 		}
 		
-		return new ModelAndView("redirect:/agenda");
+		return new ModelAndView("redirect:/home");
 	}
 }

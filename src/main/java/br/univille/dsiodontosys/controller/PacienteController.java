@@ -25,12 +25,12 @@ import br.univille.dsiodontosys.repository.SystemUserRepository;
 
 @Controller
 @RequestMapping("/paciente")
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class PacienteController {
 
 	@Autowired
 	private PacienteRepository pacienteRepository;
-	
+
 	@Autowired
 	private SystemUserRepository systemUserRepository;
 
@@ -57,7 +57,7 @@ public class PacienteController {
 	public ModelAndView save(@Valid Paciente paciente, BindingResult result, RedirectAttributes redirect) {
 		paciente.getUser().setUsername(paciente.getEmail());
 		paciente.getUser().setRole("ROLE_USER");
-		paciente.getUser().setPassword((passwordEncoder.encode(paciente.getUser().getPassword())));
+		paciente.getUser().setPassword(passwordEncoder.encode(paciente.getUser().getPassword()));
 
 		Optional<Paciente> cpfPaci = this.pacienteRepository.findByCpf(paciente.getCpf());
 		if (cpfPaci.isPresent()) {
@@ -84,10 +84,19 @@ public class PacienteController {
 		}
 		return new ModelAndView("redirect:/paciente");
 	}
-	
-	@PostMapping(params = "formalterarsenha")
+
+	@GetMapping(value = "/formalterarsenha/{id}")
+	public ModelAndView alterarSenhaForm(@PathVariable("id") SystemUser systemUser) {
+
+		return new ModelAndView("paciente/formalterarsenha", "systemUser", systemUser);
+	}
+
+	@PostMapping(params = "form",value="/formalterarsenha")
 	public ModelAndView saveAlterSenha(@Valid SystemUser systemUser, BindingResult result, RedirectAttributes redirect) {
-		systemUser = this.systemUserRepository.save(systemUser);
+		SystemUser systemUserold = systemUserRepository.getOne(systemUser.getId());
+		
+		systemUserold.setPassword(passwordEncoder.encode(systemUser.getPassword()));
+		systemUser = this.systemUserRepository.save(systemUserold);
 		return new ModelAndView("redirect:/paciente");
 	}
 
@@ -97,12 +106,8 @@ public class PacienteController {
 		localuser = paciente.getUser();
 		return new ModelAndView("paciente/formalterar", "paciente", paciente);
 	}
-	
-	@GetMapping(value = "/alterarsenha/{id}")
-	public ModelAndView alterarSenhaForm(@PathVariable("id") SystemUser systemUser) {
-		
-		return new ModelAndView("paciente/formalterarsenha", "systemUser", systemUser);
-	}
+
+
 
 	@GetMapping(value = "remover/{id}")
 	public ModelAndView remover(@PathVariable("id") Paciente paciente, RedirectAttributes redirect) {

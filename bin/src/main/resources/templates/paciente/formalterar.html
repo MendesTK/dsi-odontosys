@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="layout :: htmlhead"></head>
 <meta charset="UTF-8">
-<title>Novo Paciente</title>
+<title>Alterar Paciente</title>
 <body>
 	<div class="container">
 		<nav th:replace="layout :: menu">(menu)</nav>
 		<div class="border border-dark">
-			<form th:action="@{/paciente/(form)}" th:object="${paciente}"
+			<form th:action="@{/paciente/(formalterar)}" th:object="${paciente}"
 				action="#" method="post">
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
@@ -37,20 +37,19 @@
 						th:field="*{endereco}" class="form-control" id="txtendereco"
 						placeholder="Rua Tenente Antônio João, 666 - Bom Retiro">
 				</div>
-				
+
 				<div class="form-group col-md-8">
 					<label for="txtemail">E-mail</label> <input type="text"
 						th:field="*{email}" class="form-control" id="txtemail"
 						placeholder="exemplo@exemplo.com">
 				</div>
-				
+
 				<div class="form-group col-md-8">
-					<label for="txtsenha">Senha</label> <input type="password"
-						th:field="*{user.password}" class="form-control" id="txtsenha"
-						placeholder="Digite uma senha">
+					<a href="formalterarsenha.html"
+						th:href="@{'/paciente/formalterarsenha/' + ${paciente.user.id}}"
+						class="btn btn-secondary btn-lg" role="button" target="_blank">Alterar Senha</a>
 				</div>
-
-
+				
 				<button type="submit" class="btn btn-primary">Enviar</button>
 			</form>
 		</div>

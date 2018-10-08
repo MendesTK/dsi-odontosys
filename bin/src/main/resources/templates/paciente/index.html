@@ -25,10 +25,15 @@
 						<td th:text="${umpac.sexo}"></td>
 						<td th:text="${umpac.cpf}"></td>
 						<td th:text="${umpac.endereco}"></td>
-						<td><a href="form.html"
+						<td><a href="formalterarsenha.html"
+							th:href="@{'/paciente/formalterarsenha/' + ${umpac.id}}"
+							class="btn btn-secondary btn-lg" role="button" target="_blank">Alterar Senha</a> 
+							
+							<a href="form.html"
 							th:href="@{'/paciente/alterar/' + ${umpac.id}}"
-							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a
-							href="#" class="btn btn-warning btn-lg" role="button"
+							class="btn btn-secondary btn-lg" role="button">Alterar</a> 
+							
+							<a href="#" class="btn btn-warning btn-lg" role="button"
 							data-toggle="modal" data-target="#confirmaExclusao"
 							th:data-id="${umpac.id}">Excluir</a></td>
 					</tr>
