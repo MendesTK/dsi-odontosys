@@ -24,7 +24,7 @@ import br.univille.dsiodontosys.valueobject.DentistaSelecionado;
 
 @Controller
 @RequestMapping("/procedimento")
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ProcedimentoController {
 
 	@Autowired

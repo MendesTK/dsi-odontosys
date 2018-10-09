@@ -25,7 +25,7 @@ import br.univille.dsiodontosys.repository.MaterialRepository;
 
 @Controller
 @RequestMapping("/estoque")
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class EstoqueController {
 
 	@Autowired

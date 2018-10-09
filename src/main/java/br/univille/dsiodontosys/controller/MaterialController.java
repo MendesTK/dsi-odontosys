@@ -22,7 +22,7 @@ import br.univille.dsiodontosys.repository.MaterialRepository;
 
 @Controller
 @RequestMapping("/material")
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class MaterialController {
 
 	@Autowired
