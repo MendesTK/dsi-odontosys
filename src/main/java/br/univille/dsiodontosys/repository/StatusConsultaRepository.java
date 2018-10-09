@@ -7,5 +7,7 @@ import br.univille.dsiodontosys.model.StatusConsulta;
 
 @Repository
 public interface StatusConsultaRepository extends JpaRepository<StatusConsulta, Long>{
+	
+	public StatusConsulta findByStatus(String status);
 
 }

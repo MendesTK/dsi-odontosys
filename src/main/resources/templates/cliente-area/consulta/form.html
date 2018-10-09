@@ -16,8 +16,7 @@
 					<label for="txtPaciente">Paciente</label> <select
 						class="form-control" id="listPaciente" th:field="*{paciente}"
 						required>
-						<option value="">Selecione o paciente</option>
-						<option th:each="umpaciente : ${listapacientes}"
+						<option th:each="umpaciente : ${paciente}"
 							th:value="${umpaciente.id}" th:text="${umpaciente.nome}"></option>
 					</select>
 				</div>
@@ -26,8 +25,7 @@
 					<label for="txtStatusCons">Status da Consulta</label> <select
 						class="form-control" id="listStatusConsulta" th:field="*{status}"
 						required>
-						<option value="">Selecione o paciente</option>
-						<option th:each="umstatus : ${listaStatusConsulta}"
+						<option th:each="umstatus : ${status}"
 							th:value="${umstatus.id}" th:text="${umstatus.status}"></option>
 					</select>
 				</div>

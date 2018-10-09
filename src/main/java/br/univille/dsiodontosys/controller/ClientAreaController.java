@@ -60,22 +60,20 @@ public class ClientAreaController {
 		return new ModelAndView("cliente-area/consulta/index", "listacons", consultasPaciente);
 	}
 	
-	@GetMapping("/AgendarConsulta")
-	public ModelAndView agendaConsulta(@ModelAttribute Agenda agenda) {
-		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
-		
-		List<Paciente> listaPacientes = pacienteRepository.findAll();
-		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
+	@GetMapping("/consulta/AgendarConsulta")
+	public ModelAndView agendaConsulta(@ModelAttribute Agenda agenda) {	
+		List<Paciente> paciente = pacienteRepository.findByUser(myUserDetailsService.getUserLogged());
+		StatusConsulta status = statusConsultaRepository.findByStatus("Pendente");
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
 		List<Dentista> listaDentistas = new ArrayList<Dentista>();
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
-		dados.put("listapacientes", listaPacientes);
-		dados.put("listaStatusConsulta", listaStatus);
+		dados.put("paciente", paciente);
+		dados.put("status", status);
 		dados.put("listaprocedimentos", listaProcedimentos);
 		dados.put("listadentistas", listaDentistas);
 		
-		return new ModelAndView("agenda/form", dados);
+		return new ModelAndView("cliente-area/consulta/form", dados);
 	}
 	
 	
