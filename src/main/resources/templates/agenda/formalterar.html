@@ -22,10 +22,12 @@
 				<input type="hidden" th:field="*{paciente}" />
 
 				<div class="form-group col-md-8">
-					<label for="slcstatus">Status da Consulta</label> <select
-						class="form-control" id="slcstatus" th:field="*{status}">
-						<option th:value="Pendente">Pendente</option>
-						<option th:value="Finalizado">Finalizado</option>
+					<label for="txtStatusCons">Status da Consulta</label> <select
+						class="form-control" id="listStatusConsulta" th:field="*{status}"
+						required>
+						<option value="">Selecione o paciente</option>
+						<option th:each="umstatus : ${listaStatusConsulta}"
+							th:value="${umstatus.id}" th:text="${umstatus.status}"></option>
 					</select>
 				</div>
 
@@ -40,12 +42,14 @@
 				</div>
 
 				<div class="form-group col-md-8">
-					<label for="txtDentista">Dentista</label> <select
+					<label for="txtDentista">Dentista</label> 
+					
+					<select 
 						class="form-control" id="listProcedimentos"
 						th:field="*{dentistaResponsavel}" required>
 						<option value="">Selecione o dentista</option>
 						<option th:each="umdentista : ${listadentistas}"
-							th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
+							    th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
 					</select>
 				</div>
 
@@ -76,6 +80,10 @@
 			$('#datetimepicker1').datetimepicker({
 				locale : 'pt-br',
 				format : "DD/MM/YYYY HH:mm"
+			});
+
+			$('#listProcedimentos').on("change", function(){
+				$("#formAgenda").attr('action', "/agenda/atualizarmedicos?form").submit();
 			});
 		});
 	</script>
