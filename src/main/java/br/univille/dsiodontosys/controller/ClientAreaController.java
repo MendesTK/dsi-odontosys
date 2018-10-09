@@ -52,12 +52,12 @@ public class ClientAreaController {
 		return new ModelAndView("cliente-area/index");
 	}
 	
-	@GetMapping("/consultas")
+	@GetMapping("/consulta")
 	public ModelAndView consultas(@ModelAttribute Agenda agenda) {
 		
 		List<Agenda> consultasPaciente = agendaRepository.findByPacienteUser(myUserDetailsService.getUserLogged());
 		
-		return new ModelAndView("cliente-area/index", "listacons", consultasPaciente);
+		return new ModelAndView("cliente-area/consulta/index", "listacons", consultasPaciente);
 	}
 	
 	@GetMapping("/AgendarConsulta")
