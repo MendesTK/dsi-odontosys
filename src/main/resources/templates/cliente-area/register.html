@@ -22,12 +22,12 @@
 				<div class="form-group col-md-8">
 					<label for="txtnome">Nome</label> <input type="text"
 						th:field="*{nome}" class="form-control" id="txtnome"
-						placeholder="Nome">
+						placeholder="Nome" required>
 				</div>
 
 				<div class="form-group col-md-8">
 					<label for="slcsexo">Sexo</label> <select class="form-control"
-						id="slcsexo" th:field="*{sexo}">
+						id="slcsexo" th:field="*{sexo}" required>
 						<option th:value="Masculino">Masculino</option>
 						<option th:value="Feminino">Feminino</option>
 						<option th:value="Outro">Outro</option>
@@ -37,7 +37,7 @@
 				<div class="form-group col-md-8">
 					<label for="txtCPF">CPF</label> <input type="text"
 						th:field="*{cpf}" class="form-control" id="txtCPF"
-						placeholder="CPF">
+						placeholder="CPF" required>
 				</div>
 
 				<div class="form-group col-md-8">
@@ -49,13 +49,13 @@
 				<div class="form-group col-md-8">
 					<label for="txtemail">E-mail</label> <input type="text"
 						th:field="*{email}" class="form-control" id="txtemail"
-						placeholder="exemplo@exemplo.com">
+						placeholder="exemplo@exemplo.com" required>
 				</div>
 
 				<div class="form-group col-md-8">
 					<label for="txtsenha">Senha</label> <input type="password"
 						th:field="*{user.password}" class="form-control" id="txtsenha"
-						placeholder="Digite uma senha">
+						placeholder="Digite uma senha" required>
 				</div>
 
 
