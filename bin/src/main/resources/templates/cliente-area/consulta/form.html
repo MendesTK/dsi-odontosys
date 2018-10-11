@@ -7,8 +7,8 @@
 	<div class="container">
 		<nav th:replace="cliente-area/layout :: menu">(menu)</nav>
 		<div class="border border-dark">
-			<form th:action="@{/cliente-area/consulta/(form)}"
-				th:object="${agenda}" action="#" method="post" id="formAgenda">
+			<form th:action="@{/cliente-area/consulta/(form)}" th:object="${agenda}" action="#"
+				method="post" id="formAgenda">
 
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
@@ -20,13 +20,13 @@
 							th:value="${umpaciente.id}" th:text="${umpaciente.nome}"></option>
 					</select>
 				</div>
-
+				
 				<div class="form-group col-md-8">
 					<label for="txtStatusCons">Status da Consulta</label> <select
 						class="form-control" id="listStatusConsulta" th:field="*{status}"
 						required>
-						<option th:each="umstatus : ${status}" th:value="${umstatus.id}"
-							th:text="${umstatus.status}"></option>
+						<option th:each="umstatus : ${status}"
+							th:value="${umstatus.id}" th:text="${umstatus.status}"></option>
 					</select>
 				</div>
 
@@ -42,12 +42,14 @@
 
 
 				<div class="form-group col-md-8">
-					<label for="txtDentista">Dentista</label> <select
+					<label for="txtDentista">Dentista</label> 
+					
+					<select 
 						class="form-control" id="listProcedimentos"
 						th:field="*{dentistaResponsavel}" required>
 						<option value="">Selecione o dentista</option>
 						<option th:each="umdentista : ${listadentistas}"
-							th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
+							    th:value="${umdentista.id}" th:text="${umdentista.nome}"></option>
 					</select>
 				</div>
 
@@ -68,9 +70,10 @@
 					</div>
 				</div>
 
-				<div class="btn">
-					<button type="submit" class="btn btn-primary">Enviar</button>
-				</div>
+
+
+
+				<button type="submit" class="btn btn-primary">Enviar</button>
 			</form>
 		</div>
 	</div>
@@ -82,14 +85,10 @@
 				locale : 'pt-br',
 				format : "DD/MM/YYYY HH:mm"
 			});
-
-			$('#listProcedimentos').on(
-					"change",
-					function() {
-						$("#formAgenda").attr('action',
-								"/cliente-area/consulta/AgendarConsulta=?form")
-								.submit();
-					});
+			
+			$('#listProcedimentos').on("change", function(){
+				$("#formAgenda").attr('action', "/agenda/atualizarmedicos?form").submit();
+			});
 		});
 	</script>
 

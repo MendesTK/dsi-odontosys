@@ -2,37 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="layout :: htmlhead"></head>
 <meta charset="UTF-8">
-<title>Paciente</title>
+<title>Consultas</title>
 <body>
 	<div class="container">
-		<nav th:replace="layout :: menu">(menu)</nav>
-		<a href="form.html" th:href="@{/paciente/novo}"
-			class="btn btn-primary btn-lg" role="button">Novo</a>
+		<nav th:replace="cliente-area/layout :: menu">(menu)</nav>
+		<a href="form.html" th:href="@{/cliente-area/consulta/AgendarConsulta}"
+			class="btn btn-primary btn-lg" role="button">Marcar Consulta</a>
 		<div class="border border-dark">
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
 						<th scope="col">Nome</th>
-						<th scope="col">Sexo</th>
-						<th scope="col">CPF</th>
-						<th scope="col">Endereço</th>
+						<th scope="col">Status</th>
+						<th scope="col">Data</th>
+						<th scope="col">Procedimento</th>
+						<th scope="col">Dentista Responsável</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr scope="row" th:each="umpac : ${listapac}">
-						<td th:text="${umpac.nome}"></td>
-						<td th:text="${umpac.sexo}"></td>
-						<td th:text="${umpac.cpf}"></td>
-						<td th:text="${umpac.endereco}"></td>
-						<td>
-							<a href="form.html"
-							th:href="@{'/paciente/alterar/' + ${umpac.id}}"
-							class="btn btn-secondary btn-lg" role="button">Alterar</a> 
-							
-							<a href="#" class="btn btn-warning btn-lg" role="button"
+					<tr scope="row" th:each="umacons : ${listacons}">
+						<td th:text="${umacons.paciente.nome}"></td>
+						<td th:text="${umacons.status.status}"></td>
+						<td th:text="${#dates.format(umacons.data, 'dd/MM/yyyy HH:mm')}"></td>
+						<td th:text="${umacons.procedimento.nome}"></td>
+						<td th:text="${umacons.dentistaResponsavel.nome}"></td>
+						<td><a href="form.html"
+							th:href="@{'/agenda/alterar/' + ${umacons.id}}"
+							class="btn btn-secondary btn-lg" role="button">Alterar</a> <a
+							href="#" class="btn btn-warning btn-lg" role="button"
 							data-toggle="modal" data-target="#confirmaExclusao"
-							th:data-id="${umpac.id}">Excluir</a></td>
+							th:data-id="${umacons.id}">Excluir</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -49,7 +49,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p>Confirma a exclusão deste registro do Paciente?</p>
+						<p>Confirma a exclusão deste registro da consulta?</p>
 					</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-warning btn-lg" id="btnConf"
@@ -71,7 +71,7 @@
 					var recipient = button.data('id')
 					var modal = $(this)
 					modal.find('#btnConf').attr("href",
-							"/paciente/remover/" + recipient)
+							"/consulta/remover/" + recipient)
 				})
 		/*]]>*/
 	</script>

@@ -10,6 +10,7 @@
 			<form th:action="@{/paciente/(formalterar)}" th:object="${paciente}"
 				action="#" method="post">
 				<input type="hidden" id="txtid" th:field="*{id}" />
+				<input type="hidden" id="txtid" th:field="*{user.id}" />
 
 				<div class="form-group col-md-8">
 					<label for="txtnome">Nome</label> <input type="text"
@@ -47,7 +48,7 @@
 				<div class="form-group col-md-8">
 					<a href="formalterarsenha.html"
 						th:href="@{'/paciente/formalterarsenha/' + ${paciente.user.id}}"
-						class="btn btn-secondary btn-lg" role="button" target="_blank">Alterar Senha</a>
+						class="btn btn-secondary btn-lg" role="button">Alterar Senha</a>
 				</div>
 				
 				<button type="submit" class="btn btn-primary">Enviar</button>

@@ -20,8 +20,12 @@ public class MyErrorController implements ErrorController  {
         switch (statusCode) {
             case 403:
                 data.put("message", "Desculpe você não tem permissão!");
+                break;
+            case 404:
+                data.put("message", request.getAttribute("javax.servlet.error.message"));
+                break;
             default:
-            	data.put("messege", "Deu um erro mais cabreiro ainda!");
+            	data.put("message", "Deu um erro mais cabreiro ainda!");
             
             break;
         }

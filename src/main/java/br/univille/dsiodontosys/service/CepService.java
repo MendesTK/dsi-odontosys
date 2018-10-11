@@ -1,4 +1,4 @@
-package br.univille.dsiodontosys.service;
+/*package br.univille.dsiodontosys.service;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
@@ -67,4 +67,4 @@ public class CepService {
             System.out.println("connection error - " + ex.getMessage());
         }
     }
-}
+}*/

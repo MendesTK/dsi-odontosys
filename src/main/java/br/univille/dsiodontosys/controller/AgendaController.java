@@ -33,103 +33,96 @@ import br.univille.dsiodontosys.repository.StatusConsultaRepository;
 @RequestMapping("/agenda")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AgendaController {
-	
+
 	@Autowired
 	private AgendaRepository agendaRepository;
-	
+
 	@Autowired
 	private PacienteRepository pacienteRepository;
-	
+
 	@Autowired
 	private ProcedimentoRepository procedimentoRepository;
-	
+
 	@Autowired
 	private DentistaRepository dentistaRepository;
-	
+
 	@Autowired
 	private StatusConsultaRepository statusConsultaRepository;
-	
-	
+
 	@GetMapping("")
 	public ModelAndView index() {
 		List<Agenda> listaConsulta = this.agendaRepository.findAll();
-		
+
 		return new ModelAndView("agenda/index", "listacons", listaConsulta);
 	}
-	
+
 	@GetMapping("/AgendarConsulta")
 	public ModelAndView agendaConsulta(@ModelAttribute Agenda agenda) {
-		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
-		
-		List<Paciente> listaPacientes = pacienteRepository.findAll();
-		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
-		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
-		List<Dentista> listaDentistas = new ArrayList<Dentista>();
-		
-		HashMap<String, Object> dados = new HashMap<String, Object>();
-		dados.put("listapacientes", listaPacientes);
-		dados.put("listaStatusConsulta", listaStatus);
-		dados.put("listaprocedimentos", listaProcedimentos);
-		dados.put("listadentistas", listaDentistas);
-		
-		return new ModelAndView("agenda/form", dados);
-	}
-	
-	@PostMapping(params = "form",value="/atualizarmedicos")
-	public ModelAndView atualizarmedicos(Agenda agenda, BindingResult result, RedirectAttributes redirect) {
-		//List<Agenda> listaConsulta = this.agendaRepository.findAll();
-		
-		List<Dentista> listaDentistas = new ArrayList<Dentista>();
-		
-		if (agenda.getProcedimento()!= null) {
-			listaDentistas.addAll(agenda.getProcedimento().getListaDentistasAutorizados());
-		}
-		
-		List<Paciente> listaPacientes = pacienteRepository.findAll();
-		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
-		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
-		
-		HashMap<String, Object> dados = new HashMap<String, Object>();
-		dados.put("listapacientes", listaPacientes);
-		dados.put("listaStatusConsulta", listaStatus);
-		dados.put("listaprocedimentos", listaProcedimentos);
-		dados.put("listadentistas", listaDentistas);
-		
-		return new ModelAndView("agenda/form", dados);
-	}
-	
-	@PostMapping(params = "form")
-	public ModelAndView save(@Valid Agenda agenda, BindingResult result, RedirectAttributes redirect) {
+		// List<Agenda> listaConsulta = this.agendaRepository.findAll();
 
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
+		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
-		List<Dentista> listaDentistas = dentistaRepository.findAll();
-		
+		List<Dentista> listaDentistas = new ArrayList<Dentista>();
+
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listapacientes", listaPacientes);
+		dados.put("listaStatusConsulta", listaStatus);
 		dados.put("listaprocedimentos", listaProcedimentos);
 		dados.put("listadentistas", listaDentistas);
-		dados.put("agenda", agenda);
-		
-		
+
+		return new ModelAndView("agenda/form", dados);
+	}
+
+	@PostMapping(params = "form", value = "/atualizarmedicos")
+	public ModelAndView atualizarmedicos(Agenda agenda, BindingResult result, RedirectAttributes redirect) {
+		// List<Agenda> listaConsulta = this.agendaRepository.findAll();
+
+		List<Dentista> listaDentistas = new ArrayList<Dentista>();
+
+		if (agenda.getProcedimento() != null) {
+			listaDentistas.addAll(agenda.getProcedimento().getListaDentistasAutorizados());
+		}
+
+		List<Paciente> listaPacientes = pacienteRepository.findAll();
+		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
+		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
+
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("listapacientes", listaPacientes);
+		dados.put("listaStatusConsulta", listaStatus);
+		dados.put("listaprocedimentos", listaProcedimentos);
+		dados.put("listadentistas", listaDentistas);
+
+		return new ModelAndView("agenda/form", dados);
+	}
+
+	@PostMapping(params = "form")
+	public ModelAndView save(@Valid Agenda agenda, BindingResult result, RedirectAttributes redirect) {
 		agenda = this.agendaRepository.save(agenda);
-		
+
 		return new ModelAndView("redirect:/agenda");
 	}
-	
+
 	@GetMapping(value = "/alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Agenda agenda) {
 		List<Paciente> listaPacientes = this.pacienteRepository.findAll();
+		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
-		List<Dentista> listaDentistas = dentistaRepository.findAll();
+		List<Dentista> listaDentistas = new ArrayList<Dentista>();
+
+		if (agenda.getProcedimento() != null) {
+			listaDentistas.addAll(agenda.getProcedimento().getListaDentistasAutorizados());
+		}
+		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("agenda", agenda);
 		dados.put("listapacientes", listaPacientes);
+		dados.put("listaStatusConsulta", listaStatus);
 		dados.put("listaprocedimentos", listaProcedimentos);
 		dados.put("listadentistas", listaDentistas);
-		
+
 		return new ModelAndView("agenda/formalterar", dados);
 	}
-	
 
 }
