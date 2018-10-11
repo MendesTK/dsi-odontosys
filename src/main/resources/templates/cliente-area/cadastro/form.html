@@ -7,8 +7,8 @@
 	<div class="container">
 		<nav th:replace="cliente-area/layout :: menu">(menu)</nav>
 		<div class="border border-dark">
-			<form th:action="@{/cliente-area/cadastro/(form)}" th:object="${paciente}"
-				action="#" method="post">
+			<form th:action="@{/cliente-area/cadastro/(form)}"
+				th:object="${paciente}" action="#" method="post">
 				<input type="hidden" id="txtid" th:field="*{id}" />
 
 				<div class="form-group col-md-8">
@@ -31,6 +31,8 @@
 						th:field="*{cpf}" class="form-control" id="txtCPF" disabled>
 				</div>
 
+				<input type="hidden" th:field="*{cpf}">
+
 				<div class="form-group col-md-8">
 					<label for="txtendereco">Endereço</label> <input type="text"
 						th:field="*{endereco}" class="form-control" id="txtendereco"
@@ -42,7 +44,7 @@
 						th:field="*{email}" class="form-control" id="txtemail"
 						placeholder="exemplo@exemplo.com">
 				</div>
-				
+
 				<div class="btn">
 					<button type="submit" class="btn btn-primary">Enviar</button>
 				</div>

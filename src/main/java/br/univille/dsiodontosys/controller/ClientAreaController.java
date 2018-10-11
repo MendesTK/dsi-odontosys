@@ -57,7 +57,6 @@ public class ClientAreaController {
 	@Autowired
 	private StatusConsultaRepository statusConsultaRepository;
 	
-	private String cpf;
 	
 	@GetMapping("")
 	public ModelAndView index(@ModelAttribute Agenda agenda) {
@@ -76,7 +75,7 @@ public class ClientAreaController {
 	@GetMapping("/consulta/AgendarConsulta")
 	public ModelAndView agendaConsulta(@ModelAttribute Agenda agenda) {	
 		List<Paciente> paciente = pacienteRepository.findByUser(myUserDetailsService.getUserLogged());
-		List<StatusConsulta> status = statusConsultaRepository.findByStatus("Pendente");
+		StatusConsulta status = statusConsultaRepository.findByStatus("Pendente");
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
 		List<Dentista> listaDentistas = new ArrayList<Dentista>();
 		
@@ -99,7 +98,7 @@ public class ClientAreaController {
 		}
 		
 		List<Paciente> paciente = pacienteRepository.findByUser(myUserDetailsService.getUserLogged());
-		List<StatusConsulta> status = statusConsultaRepository.findByStatus("Pendente");
+		StatusConsulta status = statusConsultaRepository.findByStatus("Pendente");
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
 		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
@@ -122,7 +121,7 @@ public class ClientAreaController {
 	@GetMapping(value = "/consulta/alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Agenda agenda) {
 		List<Paciente> paciente = pacienteRepository.findByUser(myUserDetailsService.getUserLogged());
-		List<StatusConsulta> status = statusConsultaRepository.findByStatus("Pendente");
+		StatusConsulta status = statusConsultaRepository.findByStatus("Pendente");
 		List<Procedimento> listaProcedimentos = procedimentoRepository.findAll();
 		List<Dentista> listaDentistas = new ArrayList<Dentista>();
 
@@ -158,7 +157,6 @@ public class ClientAreaController {
 		
 		List<Paciente> consultaPaciente = pacienteRepository.findByUser(myUserDetailsService.getUserLogged());
 		paciente = consultaPaciente.get(0);
-		cpf = paciente.getCpf();
 		
 		return new ModelAndView("cliente-area/cadastro/form", "paciente", paciente);
 	}
@@ -167,7 +165,7 @@ public class ClientAreaController {
 	public ModelAndView saveCadastroAlteracao(@Valid Paciente paciente, BindingResult result, RedirectAttributes redirect) {
 		paciente.setUser(myUserDetailsService.getUserLogged());
 		paciente.getUser().setUsername(paciente.getEmail());
-		paciente.setCpf(cpf);
+
 		paciente = this.pacienteRepository.save(paciente);
 		
 		return new ModelAndView("redirect:/cliente-area/cadastro");

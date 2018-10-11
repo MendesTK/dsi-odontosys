@@ -24,7 +24,6 @@ import br.univille.dsiodontosys.model.Paciente;
 import br.univille.dsiodontosys.model.Procedimento;
 import br.univille.dsiodontosys.model.StatusConsulta;
 import br.univille.dsiodontosys.repository.AgendaRepository;
-import br.univille.dsiodontosys.repository.DentistaRepository;
 import br.univille.dsiodontosys.repository.PacienteRepository;
 import br.univille.dsiodontosys.repository.ProcedimentoRepository;
 import br.univille.dsiodontosys.repository.StatusConsultaRepository;
@@ -44,9 +43,6 @@ public class AgendaController {
 	private ProcedimentoRepository procedimentoRepository;
 
 	@Autowired
-	private DentistaRepository dentistaRepository;
-
-	@Autowired
 	private StatusConsultaRepository statusConsultaRepository;
 
 	@GetMapping("")
@@ -58,7 +54,6 @@ public class AgendaController {
 
 	@GetMapping("/AgendarConsulta")
 	public ModelAndView agendaConsulta(@ModelAttribute Agenda agenda) {
-		// List<Agenda> listaConsulta = this.agendaRepository.findAll();
 
 		List<Paciente> listaPacientes = pacienteRepository.findAll();
 		List<StatusConsulta> listaStatus = statusConsultaRepository.findAll();
@@ -76,7 +71,6 @@ public class AgendaController {
 
 	@PostMapping(params = "form", value = "/atualizarmedicos")
 	public ModelAndView atualizarmedicos(Agenda agenda, BindingResult result, RedirectAttributes redirect) {
-		// List<Agenda> listaConsulta = this.agendaRepository.findAll();
 
 		List<Dentista> listaDentistas = new ArrayList<Dentista>();
 

@@ -25,7 +25,6 @@
 					<label for="txtStatusCons">Status da Consulta</label> <select
 						class="form-control" id="listStatusConsulta" th:field="*{status}"
 						required>
-						<option value="">Selecione o paciente</option>
 						<option th:each="umstatus : ${listaStatusConsulta}"
 							th:value="${umstatus.id}" th:text="${umstatus.status}"></option>
 					</select>
