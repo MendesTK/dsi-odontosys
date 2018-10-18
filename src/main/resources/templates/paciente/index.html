@@ -15,7 +15,7 @@
 						<th scope="col">Nome</th>
 						<th scope="col">Sexo</th>
 						<th scope="col">CPF</th>
-						<th scope="col">Endereço</th>
+						<th scope="col">E-mail</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -24,7 +24,7 @@
 						<td th:text="${umpac.nome}"></td>
 						<td th:text="${umpac.sexo}"></td>
 						<td th:text="${umpac.cpf}"></td>
-						<td th:text="${umpac.endereco}"></td>
+						<td th:text="${umpac.email}"></td>
 						<td>
 							<a href="form.html"
 							th:href="@{'/paciente/alterar/' + ${umpac.id}}"
