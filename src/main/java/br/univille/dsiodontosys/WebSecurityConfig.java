@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private String[] resources = new String[]{
             "/", "/about", "/register/**","/webjars/**","/include/**",
-            "/css/**","/icons/**","/image/**","/js/**","/layer/**"
+            "/css/**","/icons/**","/image/**","/js/**","/layer/**","/api/**"
     };
 
 	@Override
