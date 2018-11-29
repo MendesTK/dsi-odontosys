@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyUserDetailsService userDetailsService;
 	
 	private String[] resources = new String[]{
-            "/", "/about", "/register/**","/webjars/**","/include/**",
+            "/", "/about", "/register","/webjars/**","/include/**",
             "/css/**","/icons/**","/image/**","/js/**","/layer/**","/api/**"
     };
 
